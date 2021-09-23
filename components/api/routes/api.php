@@ -59,12 +59,7 @@ Route::prefix('auth')->group(function () {
 
 Route::resource('postman/free/etabliss', EtablissementController::class);
 Route::middleware('auth:api')->prefix('etab')->group(function () {
-   Route::resource('/etabliss', EtablissementController::class, [
-      'only' => [
-         'index',
-         'show'
-      ]
-   ])->middleware(['permission:view etablissements,api']);
+   Route::resource('/etabliss', EtablissementController::class)->middleware(['permission:view etablissements,api']);
    Route::get('/showEtablissement/{id}', [EtablissementController::class, 'showEtablissement']);
    Route::post('/EditEtab/{id}', [EtablissementController::class, 'EditEtab']);
 
