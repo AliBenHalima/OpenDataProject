@@ -1,0 +1,19 @@
+<section>
+  <!-- <div class="rows inner_banner inner_banner_5 w-100" [ngStyle]="{background: 'url(http://127.0.0.1:8000/storage/documents/Events/' + Etablissement.photo + ') no-repeat center center'}" > -->
+    <div class="rows inner_banner inner_banner_5 w-100" *ngIf="Etablissement" [style.background-image]="'url('+environment+'/storage/images/Etablissements/'+ Etablissement.photo +')'" >
+
+    <!-- [style.background]="'url(/img/' + item.img + ')'" -->
+    <div class="container">
+      <h2 [style.color]="Etablissement.color"><span></span>{{Component}}</h2>
+      <ul>
+        <li><a [routerLink]="['']">Home</a>
+        </li>
+        <li><i class="fa fa-angle-right" aria-hidden="true"></i> </li>
+
+
+      </ul>
+      <p>{{ComponentDescription}}</p>
+    </div>
+  </div>
+
+</section>

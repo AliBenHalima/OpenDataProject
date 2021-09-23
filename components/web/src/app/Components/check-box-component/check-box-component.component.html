@@ -1,0 +1,6 @@
+
+<div [formGroup]="form" >
+<div *ngFor="let opt of input.options.split(',')" class="p-field-checkbox">
+    <p-checkbox  formControlName={{input.pivot.id}} [(ngModel)]="selectedValues"  name="group{{input.pivot.id}}" value="opt" [value]="opt" ></p-checkbox>
+    <label [for]="opt">{{opt}}</label>
+</div> </div>

@@ -1,0 +1,37 @@
+[
+  {
+    "id":"1",
+    "name":"textbox"
+  },
+  {
+    "id":"2",
+    "name":"dropdown"
+  },
+  {
+    "id":"3",
+    "name":"textarea"
+  },
+  {
+    "id":"4",
+    "name":"checkbox"
+  },
+  {
+    "id":"6",
+    "name":"radiobox"
+  },
+
+  {
+    "id":"5",
+    "name":"date"
+  },
+  {
+    "id":"7",
+    "name":"file"
+  },
+  {
+    "id":"8",
+    "name":"Relationship"
+  }
+
+
+]

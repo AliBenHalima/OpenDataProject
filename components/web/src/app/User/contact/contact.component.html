@@ -1,0 +1,63 @@
+
+<app-header-user></app-header-user>
+<app-user-under-header [Component]="'Contact section'" [ComponentDescription]="'Get all documents'"></app-user-under-header>
+
+<section>
+  <div class="rows inn-page-bg com-colo">
+    <div class="container inn-page-con-bg events events-1 tb-space" id="inner-page-title">
+      <!-- TITLE & DESCRIPTION -->
+      <app-user-title-description [Component]="'Contact'" [ComponentDescription]="'Contact us ...'" ></app-user-title-description>
+      <div class="col-md-9">
+      <div class="col-md-12">
+
+
+      <h5>Contact Us</h5>
+
+
+          <form (submit)="Handleform()" [formGroup]="form"  class="col s12">
+            <div class="form-row">
+              <div class="input-field col s12">
+                <h5 class="" type="text" >Name</h5>
+                <input placeholder="write your name..." type="text" formControlName="name" class="validate form-control">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="input-field col s12">
+                <h5 class="" type="text" >Email</h5>
+                <input placeholder="write your email..." type="email" formControlName="email" class="validate form-control">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="input-field col s12">
+                <h5 class="" type="text" >Subject</h5>
+                <input placeholder="write your sujet..." type="text" formControlName="sujet" class="validate form-control">
+              </div>
+            </div>
+
+          <div class="form-row">
+              <div class="input-field col s12">
+                <h5 class="" type="text" >Message</h5>
+                <textarea rows="6" cols="100" placeholder="write your message..." type="text" formControlName="message" class="validate form-control"></textarea>
+              </div>
+            </div>
+
+
+            <div class="row">
+              <div  class="input-field col s12">
+                <input [style.background-color]="Etablissement.color"  type="submit" [disabled]="!form.valid"  class="full-btn"> </div>
+            </div>
+          </form>
+
+        </div>
+      </div>
+
+
+    <app-user-sidebar></app-user-sidebar>
+  </div>
+</div>
+</section>
+
+<app-footer-user></app-footer-user>
+<p-toast [style]="{marginTop: '80px'}"></p-toast>

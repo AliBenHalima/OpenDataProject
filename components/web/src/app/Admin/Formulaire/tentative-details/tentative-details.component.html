@@ -1,0 +1,205 @@
+
+<app-header></app-header>
+<div class="container-fluid sb2">
+  <div class="row">
+    <app-sidebar></app-sidebar>
+<div class="sb2-2">
+
+  <div class="sb2-2-2">
+      <ul>
+          <li><a href="#"><i class="fa fa-home" aria-hidden="true"></i> Home</a>
+          </li>
+          <li class="active-bre"><a href="#"> Forms</a>
+          </li>
+      </ul>
+  </div>
+
+  <div class="sb2-2-3">
+    <div class="row">
+      <!-- <button
+      (click)="new()"
+      pButton
+      pRipple
+      label="New"
+      icon="pi pi-plus"
+      class="p-button-success p-mr-2">
+  </button> -->
+
+  <p-toast [style]="{ marginTop: '80px' }"></p-toast>
+  <div class="card">
+    <div class="d-flex flex-row">
+      <div class="maindiv">
+        <div class="container">
+          <div class="justify-content-between w-100">
+            <div>
+              <form (ngSubmit)="onSubmit()" >
+
+              <h3 class="text-center"
+              [id]="FormData.id" type="text" >{{FormData.designation}} <span>   <h3 *ngIf="tentative.accepted==true"> (Form Accepted)</h3>
+                <h3 *ngIf="tentative.accepted==false">(Form Refused)</h3></span></h3>
+
+
+                <div *ngFor="let input of FormData.inputs; let i = index" class="form-row">
+
+                  <div [ngSwitch]="input.type">
+
+                    <div *ngSwitchCase="'textbox'" class="mt-4 mb-4 question ">
+                      <h5 class=""
+                      [id]="FormData.id" type="text" >{{i + 1}}. {{input?.label}} <span *ngIf="input.pivot.required==1" class="asteriskField text-danger">*</span>
+                    </h5>
+
+                    <input class="form-control"    placeholder='no answer' value={{input.formrequests[0]?.value}}
+                    [id]="input.label" [required]="input.pivot.required" disabled>
+
+                    </div>
+
+                    <div *ngSwitchCase="'Relationship'" class="mt-4 mb-4 question ">
+                      <h5 class=""
+                      [id]="FormData.id" type="text" >{{i + 1}}. {{input?.label}} <span *ngIf="input.pivot.required==1" class="asteriskField text-danger">*</span>
+                    </h5>
+
+                    <input class="form-control"    placeholder='no answer' value={{input.formrequests[0]?.value}}
+                    [id]="input.label" [required]="input.pivot.required" disabled>
+
+                    </div>
+
+                    <div *ngSwitchCase="'textarea'" class="mt-4 mb-4 question">
+                      <h5 class=""
+                      [id]="FormData.id" type="text" >{{i+1}}. {{input?.label}} <span *ngIf="input.pivot.required==1" class="asteriskField text-danger">*</span>
+                    </h5>
+
+                    <textarea cols="15"  rows="10" class="form-control"    placeholder='no answer' value={{input.formrequests[0]?.value}}
+                    [id]="input.label" [required]="input.pivot.required" disabled ></textarea>
+
+                    </div>
+
+
+                  <div *ngSwitchCase="'checkbox'" class="mt-4 mb-4 question">
+                    <h5 class=""
+                    [id]="FormData.id" type="text" >{{i+1}}. {{input?.label}} <span *ngIf="input.pivot.required" class="asteriskField text-danger">*</span>
+                  </h5>
+
+                  <input class="form-control"   placeholder='no answer' value={{input.formrequests[0]?.value}}
+                    [id]="input.label" [required]="input.pivot.required" disabled>
+
+                  <!-- <div *ngFor="let opt of input.options.split(',')" class="p-field-checkbox">
+                      <p-checkbox   name="group2" value="opt" [value]="opt" ></p-checkbox>
+                      <label [for]="opt">{{opt}}</label>
+                  </div> -->
+
+
+
+                </div>
+
+
+                <div *ngSwitchCase="'dropdown'" class="mt-4 mb-4 question">
+                  <h5 class=""
+                  [id]="FormData.id" type="text" >{{i+1}}. {{input?.label}} <span *ngIf="input.pivot.required" class="asteriskField text-danger">*</span>
+                </h5>
+
+                <input class="form-control"   value={{input.formrequests[0]?.value}}
+                    [id]="input.label" [required]="input.pivot.required" disabled>
+
+                <!-- <p-dropdown  [options]="input.options.split(',')"  placeholder="Select an option" resetFilterOnHide="true" showClear="true"
+                scrollHeigh="30px"  ></p-dropdown> -->
+
+
+              </div>
+
+              <div *ngSwitchCase="'radiobox'" class="mt-4 mb-4 question">
+                <h5 class=""
+                [id]="FormData.id" type="text" >{{i+1}}. {{input?.label}} <span *ngIf="input.pivot.required" class="asteriskField text-danger">*</span>
+              </h5>
+
+              <input class="form-control"    placeholder='no answer' value={{input.formrequests[0]?.value}}
+                  [id]="input.label" [required]="input.pivot.required" disabled>
+
+              <!-- <p-dropdown  [options]="input.options.split(',')"  placeholder="Select an option" resetFilterOnHide="true" showClear="true"
+              scrollHeigh="30px"  ></p-dropdown> -->
+
+
+            </div>
+
+            <div *ngSwitchCase="'file'" class="mt-4 mb-4 question">
+              <h5 class=""
+              [id]="FormData.id" type="text" >{{i+1}}. {{input.label}} <span *ngIf="input.pivot.required" class="asteriskField text-danger">*</span>
+            </h5>
+               <a [href]='"http://127.0.0.1:8000/storage/Formulaire/Files/"+input.formrequests[0].value' class="" target="_blank" > {{input.formrequests[0].value}} </a>
+               <input *ngIf="input.formrequests[0].value==null" class="form-control"    placeholder='no answer' value='No file available' disabled>
+
+          </div>
+
+
+
+              <div *ngSwitchCase="'date'" class="mt-4 mb-4 question">
+                <h5 class=""
+                [id]="FormData.id" type="text" >{{i+1}}. {{question?.value}} <span *ngIf="input.pivot.required" class="asteriskField text-danger">*</span>
+              </h5>
+
+              <input class="form-control"   placeholder='no answer' value={{input.formrequests[0]?.value}}
+                    [id]="input.label" [required]="input.pivot.required" disabled>
+
+              <!-- <input type="date"> -->
+
+
+
+
+            </div>
+                  </div>
+                </div>
+
+             <div class="form-row">
+                  <button
+                    pButton
+                    pRipple
+                    label="Back"
+                    icon="pi pi-plus"
+                    class="p-button-info p-mr-2 mt-4"
+                    type="button"
+                    (click)="GoBack()"
+                  ></button>
+                  <button
+                  *ngIf="tentative.accepted==null && FormData.formtype=='accepting'"
+                    pButton
+                    pRipple
+                    label="Accept"
+
+                    class="p-button-success p-mr-2 mt-4"
+                    type="button"
+                    (click)="Accept()"
+                  ></button>
+                  <button
+                  *ngIf="tentative.accepted==null && FormData.formtype=='accepting' "
+                    pButton
+                    pRipple
+                    label="Refuse"
+
+                    class="p-button-danger p-mr-2 mt-4"
+                    type="button"
+                    (click)="Refuse()"
+                  ></button>
+                </div>
+
+              </form>
+
+
+
+
+
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+    </div>
+  </div>
+</div>
+
+</div>
+</div>

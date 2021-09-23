@@ -1,0 +1,98 @@
+
+<div class="card">
+  <p-toast [style]="{marginTop: '80px'}"></p-toast>
+
+
+    <p-toolbar styleClass="p-mb-4">
+        <ng-template pTemplate="left">
+          <button [disabled]="!Allpermissions.includes('create roles')"  (click)="openNew()" pButton pRipple label="New"  icon="pi pi-plus" class="p-button-success p-mr-2"  ></button>
+            <!-- <button pButton pRipple [label]="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length"></button> -->
+        </ng-template>
+
+        <ng-template pTemplate="right">
+          <div class="p-d-flex">
+            <span  class="p-input-icon-right p-ml-auto">
+                      <i  [style]="{'top':'30%'}" class="pi pi-search "></i>
+                      <input pInputText type="text" (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
+                  </span>
+          </div>
+        </ng-template>
+
+
+<!--
+        <ng-template pTemplate="right">
+            <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import" class="p-mr-2 p-d-inline-block"></p-fileUpload>
+            <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help"></button>
+        </ng-template> -->
+    </p-toolbar>
+    <p-table #dt1 [value]="roles"  [scrollable]="true" [rows]="100" scrollHeight="600px" [globalFilterFields]="['name']"
+    [virtualScroll]="true" [virtualRowHeight]="60" selectionMode="single">
+  <!-- <p-table > -->
+      <ng-template   pTemplate="header">
+          <tr>
+              <th pSortableColumn="name">name <p-sortIcon field="name"></p-sortIcon></th>
+
+              <!-- <th [style]="{'width':'60px'}">View </th> -->
+              <th *ngIf="Allpermissions.includes('update roles')" [style]="{'width':'60px'}">Edit </th>
+              <th  *ngIf="Allpermissions.includes('delete roles')" [style]="{'width':'60px'}" >Delete </th>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-role>
+          <tr>
+              <td>{{role.name}}</td>
+
+              <!-- <p-dropdown optionLabel="name" placeholder="All users"  [options]="FilterUsersByEtab(etab.id)" scrollHeigh="30px" ></p-dropdown> -->
+
+
+              <!-- <td [style]="{'width':'60px'}"> <a ><i class="fa fa-eye " aria-hidden="true"></i></a></td> -->
+              <td *ngIf="Allpermissions.includes('update roles')" [style]="{'width':'60px'}">   <a ><i class="fa fa-pencil-square-o" aria-hidden="true" (click)="editRole(role)"></i></a> </td>
+                <td *ngIf="Allpermissions.includes('delete roles')"  [style]="{'width':'60px'}">   <a (click)="DeleteRole(role.id)" ><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>
+            </tr>
+            <!-- <app-crud-row [etab]="etab"></app-crud-row> -->
+      </ng-template>
+  </p-table>
+</div>
+
+
+<p-dialog [contentStyle]="{'overflow':'visible'}" [(visible)]="displayModal" [style]="{width: '650px',height: '250px'}" header="Product Details" [modal]="true" styleClass="p-fluid" (onHide)="hideDialog()">
+  <!-- <div  [style]="{'width':'100%'}" > -->
+
+  <ng-template pTemplate="content" [style]="{'width':'100%'}">
+    <form  [formGroup]="form"  >
+    <div class="p-fluid p-formgrid p-grid">
+      <div class="p-field p-col-12 p-md-6">
+          <label for="firstname" ><h5>name</h5></label>
+          <input formControlName="name" id="Name" type="text" pInputText>
+      </div>
+
+
+      <!-- <div class="p-field p-col-12 p-md-3">
+          <label for="state"><h5>State</h5></label>
+          <p-dropdown inputId="state" [options]="states"  placeholder="Select" optionLabel="name"></p-dropdown>
+      </div> -->
+
+      <div class="p-field p-col-12 p-md-3">
+      <p-multiSelect *ngIf="permissions.length>0 && currentPermissions.length==0 " formControlName="permission"  defaultLabel="Select permissions"  (onChange)="ChangePermissions($event, dd)" #dd [options]="permissions" [(ngModel)]="SelectedPermissions" optionLabel="name" optionValue="id"></p-multiSelect>
+      <!-- <p-multiSelect *ngIf="currentPermissions.length>0" formControlName="permission"  defaultLabel="Select permissions"  (onChange)="ChangePaxType($event, dd)" #dd [options]="currentPermissions" [(ngModel)]="selectedGov" optionLabel="name" optionValue="id"></p-multiSelect> -->
+    </div>
+
+
+  </div>
+</form>
+
+</ng-template>
+<p-footer>
+  <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+  <button *ngIf="save" pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="HandleForm()"></button>
+  <button *ngIf="update" pButton pRipple label="Update" icon="pi pi-check" class="p-button-text" (click)="updateRole()"></button>
+
+</p-footer>
+
+
+<!-- </div> -->
+</p-dialog>
+
+<!-- <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog> -->
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+
+

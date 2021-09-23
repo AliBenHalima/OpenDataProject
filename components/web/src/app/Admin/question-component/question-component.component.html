@@ -1,0 +1,230 @@
+<div [formGroup]="form">
+
+
+  <label [attr.for]="question.key">{{question.label}} </label>
+
+
+
+  <div [ngSwitch]="question.answerType">
+
+  <div *ngSwitchCase="'textbox'" class="mt-4 mb-4">
+  <!-- <button class="btn btn-info" (click)="addNewItem()">Passdata</button> -->
+
+  <input class="form-control"    placeholder="write your question..."
+  [id]="question.key"  [type]="question.type" [(ngModel)]="Questionvalue" [ngModelOptions]="{standalone: true}" (change)="changeValue()" [(ngModel)]="Questionvalue" [ngModelOptions]="{standalone: true}" (change)="changeValue()">
+
+  <div class="row">
+    <div class="col-md-8">
+
+  <input class="form-control"  placeholder="short answer" [disabled]="true">
+</div>
+
+
+  <div class="col-md-3">
+
+    <p-dropdown
+    [options]="options"
+    [(ngModel)]="SelectedOption"
+    [ngModelOptions]="{standalone: true}"
+    (onChange)="Change($event)"
+    optionLabel="name"
+    optionDisabled="inactive"
+  ></p-dropdown>
+   </div>
+   <div class="col-md-1">
+    <p-inputSwitch [(ngModel)]="checked" [ngModelOptions]="{standalone: true}" (onChange)="ToggleRequired($event)"></p-inputSwitch>
+   </div>
+  </div>
+</div>
+
+<div *ngSwitchCase="'textarea'" class="m-4">
+
+  <input class="form-control"    placeholder="write your question..."
+  [id]="question.key" >
+
+  <div class="row">
+    <div class="col-md-8">
+
+  <textarea  class="form-control"  placeholder="long answer"  [disabled]="true"> </textarea>
+</div>
+
+
+<div class="col-md-3">
+
+  <p-dropdown
+  [options]="options"
+  [(ngModel)]="SelectedOption"
+  [ngModelOptions]="{standalone: true}"
+  (onChange)="Change($event)"
+  optionLabel="name"
+  optionDisabled="inactive"
+></p-dropdown>
+ </div>
+ <div class="col-md-1">
+  <p-inputSwitch [(ngModel)]="checked">Required</p-inputSwitch>
+ </div>
+</div>
+
+</div>
+
+<div  *ngSwitchCase="'dropdown'" class="mt-4 mb-4">
+   <!-- <button class="btn btn-info" (click)="addNewItem()">Passdata</button>  -->
+
+  <input class="form-control"   placeholder="write your question..."
+  [id]="question.key"  [type]="question.type" [(ngModel)]="Questionvalue" [ngModelOptions]="{standalone: true}" (change)="changeValue()">
+
+  <div class="row">
+    <div class="col-md-8">
+      <!-- <select [id]="question.key"  >
+        <option value="" selected disabled hidden>Choose here</option>
+        <option *ngFor="let opt of question.options" [value]="opt.key">{{opt.option}}</option>
+
+      </select> -->
+      <div *ngFor="let item of question.options; let i = index ">
+        <div >
+          <div class="row">
+            <div class="col-md-10"  (click)="toggleDisable($event)" >
+              <input [attr.id]="item.option" type="text"  value={{item.option}} (keyup.enter)="update($event,i)" disabled required >
+
+            </div>
+            <div class="col-md-2">
+              <a> <i class="fa fa-trash" aria-hidden="true" (click)="DeleteOption(i)"></i> </a>
+            </div>
+          </div>
+
+      </div>
+      </div>
+
+      <input type="text" id="AddInput"  (keyup.enter)="SaveOption($event)" [(ngModel)]="InputValue"   [ngModelOptions]="{standalone: true}" value="">
+
+
+    </div>
+
+    <div class="col-md-2">
+
+      <p-dropdown
+      [options]="options"
+      [(ngModel)]="SelectedOption"
+      [ngModelOptions]="{standalone: true}"
+      (onChange)="Change($event)"
+      optionLabel="name"
+      optionDisabled="inactive"
+    ></p-dropdown>
+
+     </div>
+
+     <div class="col-md-1">
+
+     <p-inputSwitch [(ngModel)]="checked"   [ngModelOptions]="{standalone: true}"></p-inputSwitch>
+    </div>
+
+    <div class="col-md-1">
+     <a> <i class="fa fa-plus" aria-hidden="true" (click)="AddOptions()"></i> </a>
+
+    </div>
+  </div>
+
+  </div>
+
+<!-- CheckBox -->
+
+<div  *ngSwitchCase="'checkbox'" class="mt-4 mb-4">
+
+  <input class="form-control"    placeholder="write your question..."
+    [id]="question.key"  [type]="question.type" [(ngModel)]="Questionvalue" [ngModelOptions]="{standalone: true}" (change)="changeValue()">
+
+  <div class="row">
+    <div class="col-md-8">
+      <!-- <select [id]="question.key" [formControlName]="question.key" >
+        <option value="" selected disabled hidden>Choose here</option>
+        <option *ngFor="let opt of question.options" [value]="opt.key">{{opt.option}}</option>
+
+      </select> -->
+      <div *ngFor="let item of question.options; let i = index ">
+        <div >
+          <div class="row">
+            <div class="col-md-10"  (click)="toggleDisable($event)" >
+              <input [attr.id]="item.option" type="text"  value={{item.option}} (keyup.enter)="update($event,i)" disabled required >
+
+            </div>
+            <div class="col-md-2">
+              <a> <i class="fa fa-trash" aria-hidden="true" (click)="DeleteOption(i)"></i> </a>
+            </div>
+          </div>
+
+      </div>
+      </div>
+
+      <input type="text" id="AddInput"  (keyup.enter)="SaveOption($event)" [(ngModel)]="InputValue"   [ngModelOptions]="{standalone: true}" value="">
+
+
+    </div>
+
+    <div class="col-md-2">
+
+      <p-dropdown
+      [options]="options"
+      [(ngModel)]="SelectedOption"
+      [ngModelOptions]="{standalone: true}"
+      (onChange)="Change($event)"
+      optionLabel="name"
+      optionDisabled="inactive"
+    ></p-dropdown>
+
+     </div>
+
+     <div class="col-md-1">
+
+     <p-inputSwitch [(ngModel)]="checked"   [ngModelOptions]="{standalone: true}"></p-inputSwitch>
+    </div>
+
+    <div class="col-md-1">
+     <a> <i class="fa fa-plus" aria-hidden="true" (click)="AddOptions()"></i> </a>
+
+    </div>
+  </div>
+
+  </div>
+
+
+
+
+
+
+  <div *ngSwitchCase="'date'" class="mt-4 mb-4">
+
+    <input class="form-control"    placeholder="write your question..."
+    [id]="question.key"  [type]="question.type" [(ngModel)]="Questionvalue" [ngModelOptions]="{standalone: true}" (change)="changeValue()">
+
+    <div class="row">
+      <div class="col-md-8">
+        <input class="form-control"  placeholder="date" [disabled]="true">
+        <span class="form-control-feedback"><i class="fa fa-calendar"></i></span>
+      </div>
+
+
+
+
+    <div class="col-md-3">
+
+      <p-dropdown
+      [options]="options"
+      [(ngModel)]="SelectedOption"
+      [ngModelOptions]="{standalone: true}"
+      (onChange)="Change($event)"
+      optionLabel="name"
+      optionDisabled="inactive"
+    ></p-dropdown>
+     </div>
+     <div class="col-md-1">
+      <p-inputSwitch [(ngModel)]="checked" [ngModelOptions]="{standalone: true}" (onChange)="ToggleRequired($event)"></p-inputSwitch>
+    </div>
+
+    </div>
+
+
+
+  </div>
+  <div class="errorMessage" *ngIf="!isValid">{{"question.label"}} is required</div>
+
+</div>

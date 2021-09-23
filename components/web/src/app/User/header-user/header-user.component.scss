@@ -1,0 +1,35 @@
+// .etab{
+//   height: 100% !important;
+// }
+// .mm2-com{
+//   height: 100% !important;
+
+// }
+// .mm1-com {
+//   height: 100% !important;
+
+// }
+
+.mm2-com p{
+  overflow: hidden;
+    display: inline-block;
+    text-overflow: ellipsis;
+    white-space: wrap;
+  	height :100px;
+    width: 100% !important;
+}
+
+.admi-mm .m-menu-inn{
+  overflow: scroll !important;
+  height: 420px !important;
+}
+
+.wed-logo img{
+  width: 150px !important;
+  height: 60px !important;
+  padding: 7px 0px !important;
+}
+
+.mobile{
+  width:1000px !important;
+}

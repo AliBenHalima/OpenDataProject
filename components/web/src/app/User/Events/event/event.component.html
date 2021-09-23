@@ -1,0 +1,20 @@
+
+<app-header-user (EtablissementObject)="PassEtablissement($event)"></app-header-user>
+<app-user-under-header [Component]="'Event'" [ComponentDescription]="'Get all Events'"></app-user-under-header>
+
+
+<section>
+  <div class="rows inn-page-bg com-colo">
+
+    <div class="container inn-page-con-bg events events-1 tb-space" id="inner-page-title">
+      <div class="mt-4">
+        <app-user-events-calendar></app-user-events-calendar>
+      </div>
+
+
+    </div>
+  </div>
+</section>
+
+
+<app-footer-user></app-footer-user>

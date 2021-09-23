@@ -1,0 +1,94 @@
+.imageEvent{
+  height: 50% !important;
+}
+
+// .ellipsis{
+//   white-space: nowrap;
+//   width: 90%;
+//   overflow: hidden;
+//   text-overflow: ellipsis;
+// }
+.imageEvent{
+  width: 100%;
+  height: 350px !important;
+  overflow: hidden;
+}
+// img{
+//  height: 35% !important;
+// }
+
+// .userimg{
+//     max-width: 100%;
+//     height: auto;
+// }
+
+// .dir-rat-left{
+//   height: auto !important;
+// }
+
+
+.dir-rat-review {
+  border: 1px solid #dedede;
+  padding-top: 25px !important;
+  padding-left: 25px !important;
+  padding-right: 25px !important;
+  padding-bottom: 0px !important;
+  background: #ffffff;
+  margin-bottom: 30px;
+}
+// .dir-rat-review{
+//   height: 250px !important;
+// }
+textarea{
+    // background-color: transparent !important;
+    // border: none !important;
+    // border-bottom: 1px solid #9e9e9e !important;
+    // border-radius: 0 !important;
+    // outline: none !important;
+    // height: 3rem !important;
+    // width: 100% !important;
+    // font-size: 1rem !important;
+    // margin: 0 0 20px 0 !important;
+    // padding: 0 !important;
+    // box-shadow: none !important;
+    // box-sizing: content-box !important;
+    // transition: all 0.3s !important;
+}
+
+.fas{
+  color: #4292FF ;
+}
+.dir-rat-left {
+  text-align: center !important;
+}
+.dir-rat-left img {
+  border-radius: 50px;
+  margin-bottom: 20px;
+}
+.userimg {
+  height: 50px !important;
+  width: 50px !important;
+}
+.comments{
+  margin-top: 100px;
+  margin-bottom: 100px;
+}
+
+.dir-rat{
+  overflow:auto !important;
+  height: 700px !important;
+}
+
+.link-btn{
+  background: #253D52;
+}
+
+.fa-smile{
+  color: none !important;
+}
+.fa-angry{
+  color: none !important;
+}
+.fa-meh{
+  color: none !important;
+}

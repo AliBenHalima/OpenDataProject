@@ -1,0 +1,286 @@
+<div *ngFor="let item of feeds">
+  <p>feed is {{item}}</p>
+</div>
+<p>P</p>
+
+
+
+<app-header></app-header>
+<div class="container-fluid sb2">
+  <div class="row">
+    <app-sidebar></app-sidebar>
+<div class="sb2-2">
+
+  <div class="sb2-2-2">
+      <ul>
+
+          <li ><a> Group Chats</a>
+          </li>
+      </ul>
+
+  </div>
+  <p-dropdown *ngIf="Localrole" [style]="{'justify-content' : 'flex-end !important' }" resetFilterOnHide="true" showClear="true" [(ngModel)]="SelectedSearchEtab" (onChange)="OnChangeEtab($event)" optionLabel="nom"  placeholder="Etablissements"  [options]="etablissements" optionValue="id" scrollHeigh="30px" [filter]="true" filterBy="nom"
+  [showClear]="true"></p-dropdown>
+  <div class="sb2-2-3">
+      <div class="row">
+        <div class="container">
+          <div class="ks-page-content">
+              <div class="ks-page-content-body">
+                  <div class="ks-messenger">
+                      <div class="ks-discussions">
+                          <div class="ks-search">
+                              <div class="input-icon icon-right icon icon-lg icon-color-primary">
+                                  <input   [(ngModel)]="searchText"  (input)="onSearchChange(searchText)" id="input-group-icon-text" type="text" class="form-control" placeholder="Search">
+                                  <span class="icon-addon">
+                          <span class="la la-search"></span>
+                                  </span>
+                              </div>
+                          </div>
+                          <div   class="ks-body ks-scrollable jspScrollable" data-auto-height="" style="height: 100%; overflow-y: scroll; padding: 0px; width: auto;" tabindex="0">
+                            <button  (click)="openNew()" pButton pRipple label="New"  icon="pi pi-plus" class="p-button-success p-mr-2"  ></button>
+
+
+                              <div class="jspContainer" style="width: 339px; height: auto;">
+                                  <div class="jspPane" style="padding: 0px; top: 0px; width: 329px;" *ngIf="sujets.length>0">
+
+                                    <ul class="ks-items" *ngFor="let sujet of sujets">
+                                      <li  [ngClass]="sujet.count > 0 ? 'ks-item  ks-active' : 'ks-item'"   (click)=" FiltermessagesBySujet(sujet.id)">
+                                        <a >
+                                          <!-- <span *ngIf="newmsg.length>0" class="ks-group-amount">{{newmsg[sujet].new}}</span> -->
+                                            <span class="ks-avatar">
+                                                <img  src="assets/chatImage.jpg" width="66" height="36">
+                                                <span *ngIf="sujet.count > 0" matBadge={{sujet.count}}> </span>
+                                            </span>
+                                            <div class="ks-body">
+                                              <div  [ngClass]="sujet.id == CurrentSujet?.id ? 'ks-name text-primary' : 'ks-name'" (click)="setSujet(CurrentSujet,sujet)">
+                                                <!-- <div class="ks-name" (click)="setSujet(CurrentSujet?,sujet)"> -->
+
+                                                    {{sujet.name}}
+                                                    <span *ngIf="sujet.msg?.created_at != '' "  class="ks-datetime">{{sujet.msg?.created_at | date:'shortTime'}}</span>
+<i (click)="DeleteSujet(sujet.id)" class="pi pi-trash"></i>
+                                                </div>
+                                                <div  *ngIf="sujet.msg?.users != null" class="ks-message font-weight-bold">{{sujet.msg?.users.name}} : {{sujet.newmsg}}</div>
+                                                <!-- <div *ngIf="lastText" class="ks-message">Why didn't he come and talk to me himse...</div> -->
+                                            </div>
+                                        </a>
+                                    </li>
+                                         </ul>
+                                     </div>
+                                     <div class="jspPane" style="padding: 0px; top: 0px; width: 329px;" *ngIf="sujets.length==0">
+                                      <div>
+                                        <h6  class="text-center comments">No Subjects available yet...</h6>
+                                      </div>
+
+                                       </div>
+
+                              </div>
+                          </div>
+
+                      </div>
+                      <div class="ks-messages ks-messenger__messages">
+                          <div class="ks-header">
+                              <div class="ks-description">
+                                  <div class="ks-name">{{CurrentSujet?.name}}</div>
+                              </div>
+                              <div class="ks-controls">
+                                <p-button type="button" (click)="visibleSidebar2 = true" icon="pi pi-arrow-left"></p-button>
+
+                              </div>
+                          </div>
+                          <div  id="mychatelement2" class="ks-body ks-scrollable jspScrollable" data-auto-height="" data-reduce-height=".ks-footer" data-fix-height="32" style="height: 100%; overflow-y: scroll; padding: 0px; width: auto;" tabindex="0">
+                              <div class="jspContainer" style="width: 701px; height: 481px;">
+                                  <div class="jspPane" style="padding: 0px; top: 0px; width: 691px;">
+                                    <!-- ////////////////////////////// -->
+                                    <ul class="ks-items" *ngFor="let msg of Allmessages">
+                                      <li  [ngClass]="msg.users.id == user_id ? 'ks-item ks-from' : 'ks-item ks-self'">
+
+                                              <span class="ks-avatar ks-offline">
+                                                <img  [src]='environment+"/storage/images/Users/"+msg.users.photo' width="36" height="36" class="rounded-circle">
+                                              </span>
+
+                                              <div class="ks-body">
+                                                  <div class="ks-header">
+                                                      <span class="ks-name">{{msg.users.name}}</span>
+                                                      <span class="ks-datetime">{{msg.created_at | date:'medium'}}</span>
+                                                  </div>
+                                                  <div class="ks-self">{{msg.contenu}}</div>
+                                              </div>
+                                          </li>
+
+                                      </ul>
+                                  </div>
+
+                              </div>
+                          </div>
+                          <div class="ks-footer">
+                              <textarea class="form-control" placeholder="Type something..." [(ngModel)]="message"></textarea>
+                              <div class="ks-controls">
+                                  <button (click)="SendMessage()" class="btn btn-primary" >Send</button>
+                                  <a href="#" class="la la-paperclip ks-attachment"></a>
+                                  <div class="dropdown dropup">
+                                      <button class="btn btn-link ks-smile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                          <span class="la la-smile-o"></span>
+                                      </button>
+                                      <div class="dropdown-menu dropdown-menu-right ks-scrollable ks-smileys" aria-labelledby="dropdownMenuButton" style="overflow: hidden; padding: 0px; width: 200px;">
+
+                                          <div class="jspContainer" style="width: 198px; height: 165px;">
+                                              <div class="jspPane" style="padding: 0px; top: 0px; left: 0px; width: 100px;">
+                                                  <div class="ks-smileys-wrapper">
+                                                      <table>
+                                                          <tbody>
+                                                              <tr>
+                                                                  <td>
+                                                                      <img src="https://bootdey.com/img/Content/avatar/avatar1.png" width="20" height="20">
+                                                                  </td>
+                                                                  <td>
+                                                                      <img src="https://bootdey.com/img/Content/avatar/avatar2.png" width="20" height="20">
+                                                                  </td>
+                                                                  <td>
+                                                                      <img src="https://bootdey.com/img/Content/avatar/avatar3.png" width="20" height="20">
+                                                                  </td>
+                                                                  <td>
+                                                                      <img src="https://bootdey.com/img/Content/avatar/avatar4.png" width="20" height="20">
+                                                                  </td>
+                                                                  <td>
+                                                                      <img src="https://bootdey.com/img/Content/avatar/avatar1.png" width="20" height="20">
+                                                                  </td>
+                                                              </tr>
+                                                              <tr>
+                                                                  <td>
+                                                                      <img src="https://bootdey.com/img/Content/avatar/avatar2.png" width="20" height="20">
+                                                                  </td>
+                                                                  <td>
+                                                                      <img src="https://bootdey.com/img/Content/avatar/avatar3.png" width="20" height="20">
+                                                                  </td>
+                                                                  <td>
+                                                                      <img src="https://bootdey.com/img/Content/avatar/avatar4.png" width="20" height="20">
+                                                                  </td>
+                                                                  <td>
+                                                                      <img src="https://bootdey.com/img/Content/avatar/avatar5.png" width="20" height="20">
+                                                                  </td>
+                                                                  <td>
+                                                                      <img src="https://bootdey.com/img/Content/avatar/avatar6.png" width="20" height="20">
+                                                                  </td>
+                                                              </tr>
+                                                              <tr>
+                                                                  <td>
+                                                                      <img src="https://bootdey.com/img/Content/avatar/avatar1.png" width="20" height="20">
+                                                                  </td>
+                                                                  <td>
+                                                                      <img src="https://bootdey.com/img/Content/avatar/avatar7.png" width="20" height="20">
+                                                                  </td>
+                                                                  <td>
+                                                                      <img src="https://bootdey.com/img/Content/avatar/avatar1.png" width="20" height="20">
+                                                                  </td>
+                                                                  <td>
+                                                                      <img src="https://bootdey.com/img/Content/avatar/avatar2.png" width="20" height="20">
+                                                                  </td>
+                                                                  <td>
+                                                                      <img src="https://bootdey.com/img/Content/avatar/avatar3.png" width="20" height="20">
+                                                                  </td>
+                                                              </tr>
+                                                              <tr>
+                                                                  <td>
+                                                                      <img src="https://bootdey.com/img/Content/avatar/avatar1.png" width="20" height="20">
+                                                                  </td>
+                                                                  <td>
+                                                                      <img src="https://bootdey.com/img/Content/avatar/avatar2.png" width="20" height="20">
+                                                                  </td>
+                                                                  <td>
+                                                                      <img src="https://bootdey.com/img/Content/avatar/avatar3.png" width="20" height="20">
+                                                                  </td>
+                                                                  <td>
+                                                                      <img src="https://bootdey.com/img/Content/avatar/avatar4.png" width="20" height="20">
+                                                                  </td>
+                                                                  <td>
+                                                                      <img src="https://bootdey.com/img/Content/avatar/avatar5.png" width="20" height="20">
+                                                                  </td>
+                                                              </tr>
+                                                              <tr>
+                                                                  <td>
+                                                                      <img src="https://bootdey.com/img/Content/avatar/avatar1.png" width="20" height="20">
+                                                                  </td>
+                                                                  <td>
+                                                                      <img src="https://bootdey.com/img/Content/avatar/avatar2.png" width="20" height="20">
+                                                                  </td>
+                                                                  <td>
+                                                                      <img src="https://bootdey.com/img/Content/avatar/avatar3.png" width="20" height="20">
+                                                                  </td>
+                                                                  <td>
+                                                                      <img src="https://bootdey.com/img/Content/avatar/avatar4.png" width="20" height="20">
+                                                                  </td>
+                                                                  <td>
+                                                                      <img src="https://bootdey.com/img/Content/avatar/avatar5.png" width="20" height="20">
+                                                                  </td>
+                                                              </tr>
+                                                              <tr>
+                                                                  <td>
+                                                                      <img src="https://bootdey.com/img/Content/avatar/avatar1.png" width="20" height="20">
+                                                                  </td>
+                                                                  <td>
+                                                                      <img src="https://bootdey.com/img/Content/avatar/avatar2.png" width="20" height="20">
+                                                                  </td>
+                                                                  <td>
+                                                                      <img src="https://bootdey.com/img/Content/avatar/avatar3.png" width="20" height="20">
+                                                                  </td>
+                                                                  <td>
+                                                                      <img src="https://bootdey.com/img/Content/avatar/avatar4.png" width="20" height="20">
+                                                                  </td>
+                                                                  <td>
+                                                                      <img src="https://bootdey.com/img/Content/avatar/avatar5.png" width="20" height="20">
+                                                                  </td>
+                                                              </tr>
+                                                          </tbody>
+                                                      </table>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+
+                  </div>
+              </div>
+          </div>
+          </div>
+
+
+
+
+
+
+
+      </div>
+  </div>
+</div>
+
+</div>
+</div>
+<p-toast [style]="{marginTop: '80px'}"></p-toast>
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+
+
+<p-dialog [contentStyle]="{'overflow':'visible'}" [(visible)]="displayModal" [style]="{width: '650px',height: '250px'}" header="Add Sujets" [modal]="true" styleClass="p-fluid" (onHide)="hideDialog()">
+
+
+  <ng-template pTemplate="content" [style]="{'width':'100%'}">
+    <form  [formGroup]="form">
+    <div class="p-fluid p-formgrid p-grid">
+      <div class="p-field p-col-12 p-md-6">
+          <label for="name" ><h5>name</h5></label>
+          <input formControlName="name" id="Name" type="text" pInputText>
+      </div>
+
+  </div>
+</form>
+
+</ng-template>
+<p-footer>
+  <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+  <button  pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="HandleForm()"></button>
+
+</p-footer>
+
+</p-dialog>

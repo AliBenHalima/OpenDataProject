@@ -1,0 +1,201 @@
+<app-header></app-header>
+<div class="container-fluid sb2">
+  <div class="row">
+    <app-sidebar></app-sidebar>
+<div class="sb2-2">
+  <div class="sb2-2-2">
+      <ul>
+          <li><a ><i class="fa fa-home" aria-hidden="true"></i> Dashboard</a>
+          </li>
+          <li class="active-bre"><a>Events details</a>
+          </li>
+      </ul>
+  </div>
+  <div class="sb2-2-3">
+      <div class="row">
+
+<div class="card">
+  <p-dropdown *ngIf="Localrole" resetFilterOnHide="true" showClear="true" [(ngModel)]="SelectedETab" (onChange)="OnChangeEtab($event)" optionLabel="nom"  placeholder="Etablissements"  [options]="Etablissements" optionValue="id" scrollHeigh="30px" [filter]="true" filterBy="nom"
+	[showClear]="true"></p-dropdown>
+  <h5>Events Details</h5>
+  <p-toast [style]="{marginTop: '80px'}" styleClass="custom-toast"></p-toast>
+    <p-toolbar styleClass="p-mb-4">
+        <ng-template pTemplate="left">
+        </ng-template>
+
+
+          <ng-template pTemplate="right">
+            <div class="p-d-flex">
+              <span  class="p-input-icon-right p-ml-auto">
+                        <i  [style]="{'top':'30%'}" class="pi pi-search "></i>
+                        <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
+                    </span>
+            </div>
+          </ng-template>
+
+
+
+    </p-toolbar>
+    <p-table #dt [paginator]="true" [rows]="3" [rowsPerPageOptions]="[3,25,50]"  [filterDelay]="0" sortMode="single"  [value]="Events"  [scrollable]="true"  scrollHeight="600px" [globalFilterFields]="['titre','eventtypes.name']"
+     selectionMode="single" [virtualScroll]="true" [virtualRowHeight]="60"  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
+
+  <!-- <p-table > -->
+    <ng-template pTemplate="header" >
+
+          <tr>
+            <!-- <th  >photo </th> -->
+               <th pSortableColumn="photo">Photo</th>
+              <th  pSortableColumn="titre">title<p-sortIcon field="titre"></p-sortIcon></th>
+              <th  pSortableColumn="eventtypes.name">type<p-sortIcon field="eventtypes.name"></p-sortIcon></th>
+              <!-- <th  pSortableColumn="satisfaction">Satisfaction <p-sortIcon field="satisfaction"></p-sortIcon></th> -->
+
+              <th  pSortableColumn="score">Satisfaction<p-sortIcon field="score"></p-sortIcon></th>
+
+              <th  [style]="{'width':'60px'}" >View </th>
+              <th [style]="{'width':'60px'}" >Mail</th>
+              <th *ngIf="permissions.includes('delete evenements')" [style]="{'width':'60px'}" >Delete </th>
+          </tr>
+
+      </ng-template>
+      <ng-template pTemplate="body" let-event>
+          <tr>
+            <td><img  class="rounded" [src]='environment+"/storage/documents/Events/"+event.photo' alt="no image" width="60" height="60"></td>
+              <td>{{event.titre}}</td>
+              <td>{{event.eventtypes.name}}</td>
+
+              <td>
+
+                <p *ngIf="event.users.length==0">No data available</p>
+                <p-progressBar *ngIf="event.users.length>0" [value]="event.score" [showValue]="true"></p-progressBar>
+            </td>
+
+              <td (click)="showDialog(event.users,event)"  [style]="{'width':'60px'}"><a><i class="fa fa-eye " aria-hidden="true"></i></a></td>
+              <td (click)="showMailDialog(event)"[style]="{'width':'60px'}"><a><i class="fas fa-envelope" aria-hidden="true"></i></a></td>
+              <td *ngIf="permissions.includes('delete evenements')" [style]="{'width':'60px'}">   <a (click)="DeleteUser(event.id)" ><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>
+            </tr>
+      </ng-template>
+  </p-table>
+
+</div>
+
+
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+
+
+<p-dialog  (onHide)="onHide()"  [style]="{'overflow-x': 'hidden'}" styleClass="p-fluid" [(visible)]="displayModal" [style]="{width: '950px',height: '570px','margin-top': '80px'}" header="Event Details" [modal]="true" styleClass="p-fluid">
+  <ng-template pTemplate="content" [contentStyle]="{'margin-top': '110px'}" >
+    <div class="rows p2_2">
+      <div class="col-md-6 col-sm-6 col-xs-12 p2_1">
+          <div class="band">
+          </div>
+          <img class="imageEvent w-100 h-25" [src]='SelectedEvent.photo!="" ? environment+"/storage/documents/Events/"+SelectedEvent.photo : "assets/TravelFront/images/eventimg.png"' alt="" />
+      </div>
+      <div class="col-md-6 col-sm-6 col-xs-12 p2">
+          <h3>{{SelectedEvent.titre}}</h3>
+          <p>{{SelectedEvent.description}}</p>
+          <div class="ticket">
+              <ul>
+
+                  <li>Start Date : {{SelectedEvent.date_debut | date}}</li>
+                  <li>End Date : {{SelectedEvent.date_fin | date}}</li>
+              </ul>
+          </div>
+          <div class="featur">
+              <h4>Event Locations</h4>
+              <ul>
+                  <li>{{SelectedEvent.localisation}}</li>
+
+              </ul>
+          </div>
+          <div class="featur">
+            <h4>Event Type</h4>
+            <ul>
+                <li>{{SelectedEvent.eventtypes.name}}</li>
+
+                     </ul>
+                 </div>
+
+               </div>
+           </div>
+<div>
+  <h3>
+    Comments Section
+  </h3>
+</div>
+    <div class="Chart-main" *ngIf="SelectedEvent.users.length > 0">
+      <p-chart type="pie" [data]="data" [options]="options"></p-chart>
+    </div>
+    <div>
+      <h4 *ngIf="SelectedEvent.users.length > 0" >Total number of comments : {{totalComments}} </h4>
+    </div>
+    <div class="dir-rat">
+      <div class="dir-rat-inn dir-rat-title">
+        <h3>Check Comments</h3>
+
+      </div>
+
+      <!--COMMENT RATING-->
+<div *ngIf="SelectedEvent.users.length>0">
+      <div class="dir-rat-inn dir-rat-review" *ngFor="let comment of SelectedEvent.users">
+        <!-- <app-comment [comment]="comment"  [event_id]="event_id"></app-comment> -->
+        <div class="row">
+          <div class="col-md-3 dir-rat-left">
+            <img class="userimg" [src]='environment+"/storage/images/Users/"+comment.photo' alt="comment.name">
+            <p>{{comment.name}}
+              <i class="far" [ngClass]="{' fa-smile': comment.pivot.classification=='positive',' fa-angry':comment.pivot.classification=='negative', ' fa-meh':comment.pivot.classification=='neutral' }"  aria-hidden="true"></i>
+              <span>{{comment.pivot.created_at | date}}</span> </p>
+
+          </div>
+          <div class="col-md-9 dir-rat-right">
+            <p>{{comment.pivot.message}}</p>
+
+            <ul>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="SelectedEvent.users.length==0">
+      <h3  class="text-center comments">No comments available yet...</h3>
+    </div>
+    </div>
+
+</ng-template>
+<p-footer>
+  <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+  <!-- <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveProduct()"></button> -->
+</p-footer>
+
+</p-dialog>
+
+
+<p-dialog  (onHide)="onHideMail()"  [contentStyle]="{'overflow-y': 'auto', 'overflow-x': 'hidden'}" styleClass="p-fluid" [(visible)]="displayMailModal" [style]="{width: '950px',height: 'auto','margin-top': '90px'}" header="Sending Mail" [modal]="true" styleClass="p-fluid">
+
+  <ng-template pTemplate="content">
+    <form [formGroup]="form">
+    <div class="p-field p-col-12 p-md-6">
+      <label for="Subject" ><h5>Subject</h5></label>
+      <input  formControlName="subject" id="Subject" type="text" pInputText>
+  </div>
+  <div class="p-field p-col-12 p-md-6">
+    <label for="Message" ><h5>Message</h5></label>
+    <p-editor  formControlName="message" [(ngModel)]="message" [style]="{'height':'320px'}"></p-editor>
+</div>
+</form>
+
+  </ng-template>
+  <p-footer>
+    <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="onHideMail()"></button>
+    <button pButton pRipple label="Send" icon="pi pi-check" class="p-button-text" (click)="SendMail(SelectedEvent.users)" [disabled]="!form.valid"></button>
+  </p-footer>
+  </p-dialog>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<p-dialog header="Info" [(visible)]="displayInfo"[resizable]="true" [style]="{width:'350px'}"  [contentStyle]="{ height:'100px'}" [maximizable]="true"
+[baseZIndex]="10000">
+ <h6>There are no data available...</h6>
+</p-dialog>

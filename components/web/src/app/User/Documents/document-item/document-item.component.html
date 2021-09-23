@@ -1,0 +1,12 @@
+
+<p-accordionTab header={{Sujet.nom}} (click)="onTabOpen(Sujet)">
+  <div class="card" style="width: 100%"  >
+    <ul class="list-group list-group-flush"  >
+      <li class="list-group-item" *ngFor="let Document of Documents" ><a [href]='environment+"/storage/documents/Users/"+Document.contenu' target="_blank" >{{Document.nom}}  </a> </li>
+
+    </ul>
+  </div>
+</p-accordionTab>
+
+
+

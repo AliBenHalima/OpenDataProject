@@ -1,0 +1,29 @@
+:host ::ng-deep .custom-toast .ui-toast-message {
+  display: flex;
+  width: 500px; // whatever width you need
+}
+
+.tourz-search-1 p{
+  padding-bottom: 200px !important;
+}
+
+.tourz-search-1 h1{
+  padding-bottom: 30px !important;
+}
+
+// .tourz-search {
+//   background: url(../img/ETablissementGeneral.jpg) no-repeat;
+//   position: relative;
+//   background-size: cover;
+// }
+.tourz-search{
+  max-width: 100%;
+  max-height: 400px;
+  overflow: hidden !important;
+}
+
+p{
+  color: #181616;
+  font-size: 20px;
+  font-weight: 100;
+}

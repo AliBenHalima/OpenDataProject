@@ -1,0 +1,30 @@
+
+<app-header-user></app-header-user>
+<app-user-under-header [Component]="'Forms section'" [ComponentDescription]="'Get all forms'"></app-user-under-header>
+
+<section>
+  <div class="rows inn-page-bg com-colo">
+    <div class="container inn-page-con-bg events events-1 tb-space" id="inner-page-title">
+      <!-- TITLE & DESCRIPTION -->
+      <div class="col-md-9">
+        <app-user-title-description [Component]="'Forms'" [ComponentDescription]="'Get all forms'" ></app-user-title-description>
+
+        <div class="col-md-12" *ngIf="formulaires.length==0">
+        <div >
+          <p>No forms available</p>
+        </div>
+      </div>
+        <div class="col-md-12" *ngIf="formulaires.length!=0" >
+        <h5 >Forms</h5>
+          <p-listbox [options]="formulaires" [(ngModel)]="selectedForm"  optionLabel="designation" (click)="goToLink()"></p-listbox>
+
+        </div>
+      </div>
+
+   <app-user-sidebar></app-user-sidebar>
+
+  </div>
+</div>
+</section>
+
+<app-footer-user></app-footer-user>

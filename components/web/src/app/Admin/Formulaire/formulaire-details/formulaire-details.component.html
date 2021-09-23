@@ -1,0 +1,94 @@
+<app-header></app-header>
+<div class="container-fluid sb2">
+  <div class="row">
+    <app-sidebar></app-sidebar>
+<div class="sb2-2">
+  <div class="sb2-2-2">
+      <ul>
+          <li><a href="#"><i class="fa fa-home" aria-hidden="true"></i> Home</a>
+          </li>
+          <li class="active-bre"><a href="#"> Ui Form</a>
+          </li>
+      </ul>
+  </div>
+  <div class="sb2-2-3">
+      <div class="row">
+
+
+<div class="card ">
+  <div class="d-flex flex-row">
+
+  </div>
+    <p-toast [style]="{marginTop: '80px'}"></p-toast>
+    <h5>{{formulaire.designation}}</h5>
+
+    <p-toolbar styleClass="p-mb-4">
+      <ng-template pTemplate="left">
+          <button  [routerLink]="['/admin/makeform']" pButton pRipple label="New"  icon="pi pi-plus" class="p-button-success p-mr-2"  ></button>
+          <!-- <button pButton pRipple [label]="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length"></button> -->
+      </ng-template>
+
+
+      <ng-template pTemplate="right">
+        <div class="p-d-flex">
+          <span  class="p-input-icon-right p-ml-auto">
+                    <i  [style]="{'top':'30%'}" class="pi pi-search "></i>
+                    <input pInputText type="text" (input)="dt4.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
+                </span>
+        </div>
+      </ng-template>
+
+
+  </p-toolbar>
+
+
+      <p-table #dt4 [value]="tentatives.tentatives"  [scrollable]="true" [rows]="100" scrollHeight="600px" [globalFilterFields]="['code','etat','date']"
+      [virtualScroll]="true" [virtualRowHeight]="60" selectionMode="single">
+    <!-- <p-table > -->
+        <ng-template   pTemplate="header">
+            <tr>
+                <th pSortableColumn="code">Code<p-sortIcon field="code"></p-sortIcon></th>
+                <th pSortableColumn="etat">Etat<p-sortIcon field="etat"></p-sortIcon></th>
+                <th pSortableColumn="date">Submission date<p-sortIcon field="date"></p-sortIcon></th>
+                <th >View more </th>
+
+                <!-- <th pSortableColumn="options">Attempts <p-sortIcon field="options"></p-sortIcon></th> -->
+
+                <!-- <th [style]="{'width':'60px'}">View </th> -->
+                <!-- <th  [style]="{'width':'60px'}">Edit </th> -->
+                <th [style]="{'width':'60px'}" >Delete </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-tentative>
+            <tr>
+
+              <td>{{tentative.code}}</td>
+                <td *ngIf="formulaire.formtype=='informative'">informative</td>
+                <td *ngIf="formulaire.formtype=='accepting' && tentative.accepted==1">Accepted</td>
+                <td *ngIf="formulaire.formtype=='accepting' && tentative.accepted==0">Refused</td>
+                <td *ngIf="formulaire.formtype=='accepting' && tentative.accepted==null">Not treated yet</td>
+                <td>{{tentative.created_at | date:'medium'}}</td>
+                <td><a  [routerLink]="['/admin/tentativedetails/',tentative.id]"> Click </a></td>
+                <!-- <td [style]="{'width':'60px'}"> <a > View</a></td> -->
+                <!-- <td [style]="{'width':'60px'}">   <a ><i class="fa fa-pencil-square-o" aria-hidden="true" (click)="editDocument(input)"></i></a> </td> -->
+                  <td [style]="{'width':'60px'}">   <a (click)="Deletetentative(tentative.id)" ><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>
+              </tr>
+              <!-- <app-crud-row [etab]="etab"></app-crud-row> -->
+        </ng-template>
+    </p-table>
+  </div>
+
+
+  <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+
+  <p-toast [style]="{marginTop: '80px'}"></p-toast>
+
+
+
+
+      </div>
+    </div>
+  </div>
+
+  </div>
+  </div>

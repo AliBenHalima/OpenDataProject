@@ -1,0 +1,249 @@
+
+<app-header-user></app-header-user>
+<app-user-under-header [Component]="'Event Detail'" [ComponentDescription]="'Get all Event Details'"></app-user-under-header>
+
+<!--====== TOUR DETAILS - BOOKING ==========-->
+<section>
+  <div class="rows banner_book" id="inner-page-title">
+    <div class="container">
+      <div class="banner_book_1">
+        <ul>
+          <li class="dl1">Location : {{event[0].localisation}}</li>
+          <li class="dl2">Type : {{event[0].eventtypes.name}} </li>
+          <li  *ngIf="calculateDiff(event[0].date_debut,event[0].date_fin)>1" class="dl3">Duration : {{calculateDiff(event[0].date_debut,event[0].date_fin)}} days</li>
+          <li *ngIf="calculateDiff(event[0].date_debut,event[0].date_fin)==1" class="dl3">Duration : {{calculateDiff(event[0].date_debut,event[0].date_fin)}} day</li>
+          <li class="dl4">{{event[0].etablissements.nom}} </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+<!--====== TOUR DETAILS ==========-->
+<section>
+  <div class="rows inn-page-bg com-colo">
+    <div class="container inn-page-con-bg tb-space">
+     <div class="col-md-9">
+
+                        <!--===== PLACES ======-->
+               <div class="rows p2_2">
+                 <div class="col-md-6 col-sm-6 col-xs-12 p2_1">
+                     <div class="band">
+                     </div>
+                     <img class="imageEvent w-100 h-25" [src]='event[0].photo!="" ? environment+"/storage/documents/Events/"+event[0].photo : "assets/TravelFront/images/eventimg.png"' alt="" />
+                 </div>
+                 <div class="col-md-6 col-sm-6 col-xs-12 p2">
+                     <h3>{{event[0].titre}}</h3>
+                     <p>{{event[0].description}}</p>
+                     <div class="ticket">
+                         <ul>
+
+                             <li>Start Date : {{event[0].date_debut | date}}</li>
+                             <li>End Date : {{event[0].date_fin | date}}</li>
+                         </ul>
+                     </div>
+                     <div class="featur">
+                         <h4>Event Locations</h4>
+                         <ul>
+                             <li>{{event[0].localisation}}</li>
+
+                         </ul>
+                     </div>
+                     <div class="featur">
+                       <h4>Event Type</h4>
+                       <ul>
+                           <li>{{event[0].eventtypes.name}}</li>
+
+                                </ul>
+                            </div>
+
+                          </div>
+                      </div>
+                      <!--===== PLACES END ======-->
+
+
+
+        <div>
+          <div class="dir-rat">
+            <div class="dir-rat-inn dir-rat-title">
+              <h3>Write Your Comment Here</h3>
+
+            </div>
+
+            <!--COMMENT RATING-->
+ <div *ngIf="comments.length>0">
+            <div class="dir-rat-inn dir-rat-review" *ngFor="let comment of comments">
+              <!-- <app-comment [comment]="comment"  [event_id]="event_id"></app-comment> -->
+              <div class="row">
+                <div class="col-md-3 dir-rat-left">
+                  <img class="userimg" [src]='environment+"/storage/images/Users/"+comment.user.photo' alt="comment.user.name">
+                  <p>{{comment.user.name}}
+                    <i *ngIf="isAuthenticated && Localrole != 'User'" class="far" [ngClass]="{' fa-smile': comment.classification=='positive',' fa-angry':comment.classification=='negative', ' fa-meh':comment.classification=='neutral' }"  aria-hidden="true"></i>
+                   <span>{{comment.created_at | date}}</span> </p>
+
+                </div>
+                <div class="col-md-9 dir-rat-right">
+                  <p>{{comment.message}}</p>
+
+                  <ul>
+                    <!-- <li><a (click)="Like(comment,true)" ><span>{{LikesNumber(comment)}} Like</span><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></a> </li> -->
+                    <li (click)="Like(comment,true)"><a  ><span>{{LikesNumber(comment)}} Like</span><i    [ngClass]="[ UserLiked(comment) ? 'fas fa-thumbs-up': 'far fa-thumbs-up']" aria-hidden="true"></i></a> </li>
+                    <li (click)="Like(comment,false)"><a   ><span>{{DislikesNumber(comment)}} Dislike</span><i [ngClass]="[ UserDisLiked(comment) ? 'fas fa-thumbs-down': 'far fa-thumbs-down']" aria-hidden="true"></i></a> </li>
+                    <li *ngIf="IsConnectedUser(comment)" (click)="EditComment(comment)"><a > <span >Edit</span> <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a> </li>
+                    <li *ngIf="IsConnectedUser(comment)" (click)="DeleteComment(comment)"><a ><span  >Delete</span> <i class="fa fa-trash-o" aria-hidden="true"></i></a> </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="comments.length==0">
+            <h3  class="text-center comments">No comments available yet...</h3>
+          </div>
+
+            <div class="dir-rat-inn">
+              <form  class="dir-rat-form" (ngSubmit)="HandleForm()"  [formGroup]="form">
+                <div class="form-group col-md-12 pad-left-o">
+                  <textarea  maxlength="260"  formControlName="message" placeholder="Write your message"></textarea>
+                </div>
+                <div  class="form-group col-md-12 pad-left-o">
+                  <input [style.background-color]="Etablissement.color" type="submit" value="SUBMIT" class="link-btn"  [disabled]="!form.valid"> </div>
+              </form>
+<!-- <h3 *ngIf="!isAuthenticated" class="text-center">Please Login to comment...</h3> -->
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 tour_r">
+        <div class="tour_right tour_incl tour-ri-com">
+          <h3>Event Information</h3>
+          <ul>
+            <li>Starting Date: {{event[0].date_debut}} </li>
+            <li>Ending Date: {{event[0].date_fin}} </li>
+
+          </ul>
+        </div>
+
+        <!--====== PUPULAR TOUR PACKAGES ==========-->
+        <div class="tour_right tour_rela tour-ri-com">
+          <h3>Similar Events</h3>
+          <div *ngIf="similarEvents.length==0">
+            <ul>
+              <li>No similar events available
+             </li>
+            </ul>
+          </div>
+
+          <div  *ngFor="let similarEvent of similarEvents" class="tour_rela_1">
+            <img class="userimg" [src]='similarEvent.photo!="" ? environment+"/storage/documents/Events/"+similarEvent.photo : "assets/TravelFront/images/eventimg.png" ' alt="" />
+            <h4>Title: {{similarEvent.titre}} </h4>
+            <p>Etabissement: {{similarEvent.etablissements.nom}} </p>
+            <p>Duration: {{calculateDiff(similarEvent.date_debut,similarEvent.date_fin)}} days</p>
+            <p class="ellipsis">Description: {{similarEvent.description}}</p> <a [style.background-color]="Etablissement.color" [routerLink]="['/user/events/',similarEvent.id]" class="link-btn">View this Event</a> </div>
+      </div>
+
+
+      <div class="tour_right head_right tour_help tour-ri-com">
+        <h3>Address</h3>
+        <div class="tour_help_1">
+          <h5><i class="fa fa-map-marker pull-left" aria-hidden="true"></i> {{Etablissement.addresse}}</h5>
+        </div>
+      </div>
+
+
+      <div class="tour_right head_right tour_help tour-ri-com">
+        <h3>Help & Support</h3>
+        <div class="tour_help_1">
+          <h5><i class="fa fa-phone" aria-hidden="true"></i> {{Etablissement.phone_number}}</h5>
+
+          <h5><i class="fa fa-envelope" aria-hidden="true"></i> {{Etablissement.email}}</h5></div>
+        </div>
+
+
+        <div class="tour_right tour_incl tour-ri-com">
+          <h3>Who are we?</h3>
+         <div id="video">
+          <iframe [src]='safeURL' frameborder="0" allowfullscreen></iframe>
+         </div>
+        </div>
+
+
+
+          <!--====== PACKAGE SHARE ==========-->
+      <div class="tour_right head_right tour_social tour-ri-com">
+        <h3>Find us on social media</h3>
+        <ul>
+          <li><a><i class="fa fa-facebook" aria-hidden="true"></i></a> </li>
+          <li><a><i class="fa fa-google-plus" aria-hidden="true"></i></a> </li>
+          <li><a><i class="fa fa-twitter" aria-hidden="true"></i></a> </li>
+          <li><a><i class="fa fa-linkedin" aria-hidden="true"></i></a> </li>
+          <li><a><i class="fa fa-whatsapp" aria-hidden="true"></i></a> </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+<!--====== TIPS BEFORE TRAVEL ==========-->
+
+
+<app-footer-user></app-footer-user>
+<p-toast [style]="{ marginTop: '80px' }"></p-toast>
+<p-dialog [contentStyle]="{'overflow':'visible'}" [(visible)]="displayModal" [style]="{width: '650px'}" header="Input Details" [modal]="true" styleClass="p-fluid" (onHide)="hideDialog()">
+
+
+  <ng-template pTemplate="content" [style]="{'width':'100%'}">
+
+    <form  [formGroup]="Updateform">
+    <div class="p-fluid p-formgrid p-grid">
+      <div class="p-field p-col-12 p-md-6">
+          <label for="label" ><h5>Comment</h5></label>
+          <input formControlName="updatedtext" id="label" type="text" pInputText>
+      </div>
+
+
+
+</div>
+
+</form>
+
+</ng-template>
+<p-footer>
+  <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+  <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="UpdatedForm()"></button>
+
+</p-footer>
+
+
+<!-- </div> -->
+</p-dialog>
+
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+
+
+
+
+<p-dialog [contentStyle]="{'overflow':'visible'}" [(visible)]="displayLogin" [style]="{width: '650px',height: '250px'}" header="Login" [modal]="true" styleClass="p-fluid" (onHide)="HideLoginForm()">
+
+  <ng-template pTemplate="content" [style]="{'width':'100%'}">
+    <form  [formGroup]="LoginForm"  >
+    <div class="p-fluid p-formgrid p-grid">
+      <div class="p-field p-col-12 p-md-6">
+          <label for="email" ><h5>Email</h5></label>
+          <input formControlName="email" id="email" type="email" pInputText>
+      </div>
+      <div class="p-field p-col-12 p-md-6">
+        <label for="password" ><h5>Password</h5></label>
+        <input formControlName="password" id="password" type="password" pInputText>
+    </div>
+
+
+  </div>
+</form>
+
+</ng-template>
+
+<p-footer>
+  <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="HideLoginForm()"></button>
+  <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="HandleLoginForm()"></button>
+
+</p-footer>

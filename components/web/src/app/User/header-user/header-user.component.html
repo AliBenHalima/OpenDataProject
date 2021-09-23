@@ -1,0 +1,172 @@
+<section>
+  <div class="ed-mob-menu">
+      <div class="ed-mob-menu-con">
+          <div class="ed-mm-left">
+            <div class="wed-logo">
+              <a> <img src="assets/TravelFront/images/universty_de_sousse.png" alt="Logo">
+              </a>
+          </div>
+          </div>
+          <div class="ed-mm-right">
+              <div class="ed-mm-menu">
+                  <a class="ed-micon"><i class="fa fa-bars"></i></a>
+                  <div class="ed-mm-inn">
+                      <a href="#!" class="ed-mi-close"><i class="fa fa-times"></i></a>
+                      <h4>Menu</h4>
+                   <ul>
+                 <li><a [routerLink]="['']">Home</a></li>
+               <li class="admi-menu"><a style="cursor: pointer;" class="mm-arr">Etablissements</a>
+                <div class="mm-pos">
+                  <div class="admi-mm m-menu mobile">
+                      <div class="m-menu-inn " >
+                          <div class="mm2-com mm1-com mm1-s1" *ngFor="let Etablissement of Etablissements">
+                              <div class="ed-course-in">
+                                  <a class="course-overlay" >
+                                    <img [src]='environment+"/storage/images/Etablissements/"+Etablissement.photo' width="320px" height="220px"   alt="Etablissement.nom" class="etab">
+                                    <span>{{Etablissement.nom}}</span>
+                                  </a>
+                              </div>
+                              <div class="ellipsis">
+                                <p>{{Etablissement.short_description}}</p>
+                              </div>
+
+                              <a [style.background-color]="Etablissement.color" class="mm-r-m-btn" (click)="SetEtablissementName(Etablissement)">View us</a>
+                          </div>
+
+
+                      </div>
+                  </div>
+              </div>
+            </li>
+            <li><a  [routerLink]="['/user/formulaires']">Forms</a></li>
+            <li><a [routerLink]="['/user/events']">Events</a></li>
+            <li><a [routerLink]="['/user/posts']">Posts</a></li>
+            <li><a [routerLink]="['/user/documents']"  >Documents</a></li>
+               <li><a [routerLink]="['/user/Galleries']">Gallery</a></li>
+               <li *ngIf="isAuthenticated && user_role=='User'"><a [routerLink]="['/user/myprofile']">Profile</a>
+               <li *ngIf="isAuthenticated && user_role!='User'"><a [routerLink]="['/admin/users']">Dashboard</a>
+               <li><a [routerLink]="['/user/contact']" >Contact</a></li>
+               <li><a [routerLink]="['/user/aboutus']">About us</a></li>
+               <li><a *ngIf="!isAuthenticated"  [routerLink]="['/Signup']">Sign Up</a></li>
+               <li><a  *ngIf="!isAuthenticated"  [routerLink]="['/Login']">Sign In</a></li>
+
+              </ul>
+
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</section>
+<section>
+  <div class="ed-top">
+    <app-user-top-header></app-user-top-header>
+    </div>
+
+</section>
+  <!-- TOP BAR -->
+
+
+<!-- LOGO AND MENU SECTION -->
+<div class="top-logo" data-spy="affix" data-offset-top="250">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+              <div class="wed-logo">
+                <a> <img src="assets/TravelFront/images/universty_de_sousse.png" alt="Logo">
+                </a>
+            </div>
+                <div class="main-menu">
+                    <ul>
+                        <li><a [routerLink]="['']">Home</a>
+                        </li>
+                        <li class="about-menu">
+
+                            <!-- MEGA MENU 1 -->
+                            <div class="mm-pos">
+                                <div class="about-mm m-menu">
+                                    <div class="m-menu-inn">
+                                        <div class="mm1-com mm1-s1">
+                                            <div class="ed-course-in">
+                                                <a class="course-overlay menu-about" href="all-package.html">
+                                                    <img src="assets/TravelFront/images/sight/5.jpg" alt="">
+                                                    <span>Popular Package</span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="mm1-com mm1-s2">
+                                            <p>Want to change the world? At Berkeley we’re doing just that. When you join the Golden Bear community, you’re part of an institution that shifts the global conversation every single day.</p>
+                                            <a href="all-package.html" class="mm-r-m-btn">Read more</a>
+                                        </div>
+                                        <div class="mm1-com mm1-s3">
+                                            <ul>
+                                                <li><a href="booking-all.html">All Booking</a></li>
+                                                <li><a href="booking-tour-package.html">Tour Package Booking</a></li>
+                                                <li><a href="booking-hotel.html">Hotel Booking</a></li>
+                                                <li><a href="booking-car-rentals.html">Car Rentals Booking</a></li>
+                                                <li><a href="booking-flight.html">Flight Booking</a></li>
+                                                <li><a href="booking-slider.html">Slider Booking</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="mm1-com mm1-s4">
+                                            <ul>
+                                                <li><a href="all-package.html">All Package</a></li><li><a href="family-package.html">Family Package</a></li>
+                                                <li><a href="honeymoon-package.html">Honeymoon Package</a></li>
+                                                <li><a href="group-package.html">Group Package</a></li>
+                                                <li><a href="weekend-package.html">WeekEnd Package</a></li>
+                                                <li><a href="regular-package.html">Regular Package</a></li>
+                                                <li><a href="custom-package.html">Custom Package</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="admi-menu">
+                            <a style="cursor: pointer; color: #000000;" class="mm-arr">Etablissements</a>
+                            <!-- MEGA MENU 1 -->
+                            <div class="mm-pos">
+                                <div class="admi-mm m-menu">
+                                    <div class="m-menu-inn" >
+                                        <div class="mm2-com mm1-com mm1-s1" *ngFor="let Etablissement of Etablissements">
+                                            <div class="ed-course-in ">
+                                                <a class="course-overlay" >
+                                                  <img [src]='environment+"/storage/images/Etablissements/"+Etablissement.photo' width="320px" height="220px"   alt="Etablissement.nom" class="etab">
+                                                  <span>{{Etablissement.nom}}</span>
+                                                </a>
+                                            </div>
+                                            <div class="ellipsis">
+                                              <p>{{Etablissement.short_description}}</p>
+                                            </div>
+
+                                            <a [style.background-color]="Etablissement.color" class="mm-r-m-btn" (click)="SetEtablissementName(Etablissement)">View us</a>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li><a [routerLink]="['/user/formulaires']">Forms</a></li>
+                        <li><a [routerLink]="['/user/events']">Events</a>
+                          <li><a [routerLink]="['/user/posts']">Posts</a>
+                        </li>
+                        <li class="cour-menu">
+                          <a [routerLink]="['/user/documents']" class="mm-arr">Documents</a>
+                      </li>
+                        <li><a [routerLink]="['/user/Galleries']">Gallery</a></li>
+                        <li *ngIf="isAuthenticated && user_role=='User'"><a [routerLink]="['/user/myprofile']">Profile</a>
+                          <li *ngIf="isAuthenticated && user_role!='User'"><a [routerLink]="['/admin/users']">Dashboard</a>
+                        </li>
+                        <li><a [routerLink]="['/user/aboutus']">About us</a>
+                        </li>
+                        <li><a [routerLink]="['/user/contact']">Contact</a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

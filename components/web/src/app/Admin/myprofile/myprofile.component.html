@@ -1,0 +1,60 @@
+
+<body>
+  <app-header></app-header>
+  <div class="container-fluid sb2">
+    <div class="row">
+      <app-sidebar></app-sidebar>
+<div class="sb2-2">
+  <div class="sb2-2-2">
+      <ul>
+          <li><a href="#"><i class="fa fa-home" aria-hidden="true"></i> Home</a>
+          </li>
+          <li class="active-bre"><a href="#"> Ui Form</a>
+          </li>
+      </ul>
+  </div>
+  <div class="sb2-2-3">
+      <div class="row">
+          <div class="col-md-12">
+              <div class="box-inn-sp">
+                  <div class="inn-title">
+                      <h4>Setting</h4>
+                      <p>Airtport Hotels The Right Way To Start A Short Break Holiday</p>
+                  </div>
+                  <div class="tab-inn">
+                    <form (submit)="EditForm()" [formGroup]="form"   >
+                          <div class="row">
+                              <div class="input-field col s12">
+                                  <input  formControlName="name" id="name"    type="text" class="validate" >
+                                </div>
+                              </div>
+                              <div class="row">
+                              <div class="input-field col s12">
+                                  <input  formControlName="email" id="email"   type="email"  class="validate">
+
+                              </div>
+                            </div>
+                          <div class="row">
+                            <div class="input-field col s12">
+                              <input  formControlName="etablissement_id" id="etablissement"  type="text" disabled >
+                            </div>
+                          </div>
+                          <div class="row">
+                              <div class="input-field col s12">
+                                  <input  formControlName="address" id="address"  type="text" class="validate">
+
+                              </div>
+                          </div>
+                          <button [disabled]="!form.valid"  type="Submit " pButton label="Update" ></button>
+                          <button  pButton type="button" label="Cancel" class="ml-4" (click)="handleCancel()"></button>
+                      </form>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+</div>
+</div>
+</body>

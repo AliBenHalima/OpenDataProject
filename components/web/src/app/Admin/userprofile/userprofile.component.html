@@ -1,0 +1,179 @@
+
+
+<body>
+  <app-header></app-header>
+  <div class="container-fluid sb2">
+    <div class="row">
+      <app-sidebar></app-sidebar>
+      <div class="sb2-2">
+
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+        <div class="container">
+        <div class="row flex-lg-nowrap">
+
+
+          <div class="col">
+            <div class="row">
+              <div class="col mb-3">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="e-profile">
+                      <div class="row">
+                        <div class="col-12 col-sm-auto mb-3">
+                          <div class="mx-auto" style="width: 140px;">
+                            <div class="d-flex justify-content-center align-items-center rounded" style="height: 140px; background-color: rgb(233, 236, 239);">
+                              <img  [src]='environment+"/storage/images/Users/"+CurrentUser.photo' alt=""  style="height: 100%; width: 100%;"/>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col d-flex flex-column flex-sm-row justify-content-between mb-3">
+                          <div class="text-center text-sm-left mb-2 mb-sm-0">
+                           <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap"> {{CurrentUser.name}}</h4>
+
+                            <div class="text-muted"><small>Role : {{CurrentUser.role_name}}</small></div>
+                            <div class="mt-2">
+                              <p-fileUpload #fubauto name="demo[]"  accept="image/*" (onSelect)="onSelect($event)" maxFileSize="1000000"  url="./upload.php" (uploadHandler)="onUpload($event)" customUpload="true"   [auto]="true" chooseLabel="Change Photo"></p-fileUpload>
+
+                            </div>
+                          </div>
+                          <div class="text-center text-sm-right">
+                            <!-- <span class="badge badge-secondary">administrator</span> -->
+                            <div class="text-muted"><small>Joined {{CurrentUser.created_at | date }}</small></div>
+                          </div>
+                        </div>
+                      </div>
+                      <ul class="nav nav-tabs">
+                        <li class="nav-item"><a href="" class="active nav-link">Settings</a></li>
+                      </ul>
+                      <div class="tab-content pt-3">
+                        <div class="tab-pane active">
+                          <form class="form" (submit)="HandleForm()" [formGroup]="form" >
+                            <div class="row">
+                              <div class="col">
+                                <div class="row">
+                                  <div class="col">
+                                    <div class="form-group">
+                                      <label> <span class="d-none d-xl-inline">Name</span></label>
+                                      <input formControlName="name" class="form-control" type="text" name="name" placeholder="Name" >
+                                    </div>
+                                  </div>
+                                  <div class="col">
+                                    <div class="form-group">
+                                      <label> <span class="d-none d-xl-inline">Address</span></label>
+
+                                      <input  formControlName="address" class="form-control" type="text" name="Address" placeholder="Address" >
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col">
+                                    <div class="form-group">
+                                      <label> <span class="d-none d-xl-inline">Email</span></label>
+
+                                      <input formControlName="email"  class="form-control" type="text" placeholder="user@example.com">
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col ">
+                                    <div class="form-group">
+                                      <label> <span class="d-none d-xl-inline">About</span></label>
+                                      <textarea  formControlName="Bio" class="form-control" rows="5" placeholder="My Bio"></textarea>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                  <div class="row" *ngIf="Localrole_id==6">
+                                    <div class="col ">
+                                      <div class="form-group">
+                                      <p-dropdown  formControlName="etablissement_id"
+                                      [style]="{'width':'100%','font-size': '15px'}" placeholder="Select an Etablissement" [(ngModel)]="selectedEtab"  [options]="Etablissements" optionLabel="nom" optionDisabled="active"   optionValue="id" scrollHeigh="30px" [filter]="true" filterBy="nom" ></p-dropdown>
+                                        <div *ngIf="form.get('etablissement_id').touched && !form.get('etablissement_id').valid">
+                                          <div *ngIf="form.get('etablissement_id').errors.required"></div>
+                                          Etablissement required
+
+                                      </div>
+                                    </div>
+                              </div>
+                            </div>
+
+                             <div class="row" *ngIf="permissions.includes('update roles')">
+                               <div class="col">
+                                 <div class="form-group">
+
+                             <p-dropdown  formControlName="role" [style]="{'width':'100%'}" placeholder="Select a role"  [options]="Roles"  [(ngModel)]="selectedrole"  optionDisabled="active" optionLabel="name"  optionValue="id" scrollHeigh="30px" [filter]="true" filterBy="name"></p-dropdown>
+                             <div *ngIf="form.get('role').touched && !form.get('role').valid">
+                               <div *ngIf="form.get('role').errors.required">
+
+                               </div>
+                               Role required
+                             </div>
+                           </div>
+                         </div>
+                            </div>
+
+
+
+
+                              </div>
+                            </div>
+                            <div class="row" >
+                              <div class="col-12 col-sm-6 mb-3">
+                                <div class="mb-2"><b>Change Password</b></div>
+                                <div class="row" *ngIf="Localrole_id!=6">
+                                  <div class="col">
+                                    <div class="form-group">
+                                      <label> <span class="d-none d-xl-inline">Current Password</span></label>
+
+                                      <input  formControlName="CurrentPassword" class="form-control" type="password" placeholder="••••••">
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col">
+                                    <div class="form-group">
+                                      <label> <span class="d-none d-xl-inline">New Password</span></label>
+                                      <input formControlName="NewPassword" class="form-control" type="password" placeholder="••••••">
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col">
+                                    <div class="form-group">
+                                      <label> <span class="d-none d-xl-inline"> Confirm Password</span></label>
+                                      <input  formControlName="ConfirmPassword" class="form-control" type="password" placeholder="••••••"></div>
+                                  </div>
+                                </div>
+                              </div>
+
+                            </div>
+                            <div class="row">
+                              <div class="col d-flex justify-content-end">
+                                <button class="btn btn-primary" type="submit">Save Changes</button>
+                              </div>
+                            </div>
+                          </form>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+            </div>
+
+          </div>
+        </div>
+        </div>
+
+
+
+
+      </div>
+    </div>
+    </div>
+    <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+
+    <p-toast [style]="{marginTop: '80px'}"></p-toast>

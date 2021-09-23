@@ -1,0 +1,18 @@
+[
+  {
+    "TableName": "documents",
+    "element":[
+     {"label":"id","value":"1"},
+     {"label":"nom","value":"nom"},
+     {"label":"description","value":"description"},
+     {"label":"contenu","value":"contenu"}
+    ]
+  },
+  {
+    "TableName": "sujet_documents",
+    "element":[
+      {"label":"id","value":"2"},
+      {"label":"nom","value":"nom"}
+     ]
+  }
+]

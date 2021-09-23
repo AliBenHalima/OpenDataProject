@@ -1,0 +1,100 @@
+
+<div class="card">
+
+
+    <p-toolbar styleClass="p-mb-4">
+        <ng-template pTemplate="left">
+          <button [disabled]="!permissions.includes('create etablissements')" [routerLink]="['/admin/Addetab']" pButton pRipple label="New"  icon="pi pi-plus" class="p-button-success p-mr-2"  ></button>
+            <!-- <button pButton pRipple [label]="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length"></button> -->
+        </ng-template>
+
+
+        <ng-template pTemplate="right">
+          <div class="p-d-flex">
+            <span  class="p-input-icon-right p-ml-auto">
+                      <i  [style]="{'top':'30%'}" class="pi pi-search "></i>
+                      <input pInputText type="text" (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
+                  </span>
+          </div>
+        </ng-template>
+
+
+    </p-toolbar>
+    <p-table #dt1 showMenu="true" [value]="Etablissements"  [scrollable]="true" [rows]="100" scrollHeight="600px" [globalFilterFields]="['nom','description','address']"
+    [virtualScroll]="true" [virtualRowHeight]="60" selectionMode="single">
+  <!-- <p-table > -->
+      <ng-template   pTemplate="header">
+          <tr>
+              <th pSortableColumn="nom">nom <p-sortIcon field="nom"></p-sortIcon></th>
+              <!-- <th pSortableColumn="description">description <p-sortIcon field="description"></p-sortIcon></th> -->
+              <th pSortableColumn="address">addresse <p-sortIcon field="address"></p-sortIcon></th>
+              <!--<th>Users</th>-->
+              <!-- <th pSortableColumn="quantity">Quantity <p-sortIcon field="quantity"></p-sortIcon></th>
+              <th pSortableColumn="price">Price <p-sortIcon field="price"></p-sortIcon></th> -->
+                <!--   <th [style]="{'width':'60px'}">View </th>-->
+                <!--  -->
+              <th *ngIf="permissions.includes('update etablissements')" [style]="{'width':'60px'}">Edit </th>
+              <th *ngIf="permissions.includes('delete etablissements')" [style]="{'width':'60px'}" >Delete </th>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-etab>
+          <tr>
+              <td>{{etab.nom}}</td>
+              <!-- <td>{{etab.description}}</td> -->
+              <td>{{etab.addresse}}</td>
+         <!--  <p-dropdown optionLabel="name" placeholder="All users"  [options]="FilterUsersByEtab(etab.id)" scrollHeigh="30px" ></p-dropdown>-->
+
+
+
+         <!-- <td [style]="{'width':'60px'}"><a   ><i class="fa fa-eye " aria-hidden="true"></i></a></td>-->
+         <!--  -->
+         <td *ngIf="permissions.includes('update etablissements')"  [style]="{'width':'60px'}">   <a  [routerLink]="['/admin/editetab/',etab.id]"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a> </td>
+                <td *ngIf="permissions.includes('delete etablissements')" [style]="{'width':'60px'}">   <a (click)="DeleteEtab(etab)" ><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>
+            </tr>
+            <!-- <app-crud-row [etab]="etab"></app-crud-row> -->
+      </ng-template>
+  </p-table>
+</div>
+
+
+<p-dialog [(visible)]="displayModal" [style]="{width: '650px',height: '450px'}" header="Product Details" [modal]="true" styleClass="p-fluid">
+  <ng-template pTemplate="content">
+    <form action="">
+    <div class="p-fluid p-formgrid p-grid">
+      <div class="p-field p-col-12 p-md-6">
+          <label for="firstname" ><h5>Nom</h5></label>
+          <input id="firstname" type="text" pInputText>
+      </div>
+      <div class="p-field p-col-12 p-md-6">
+          <label for="lastname"><h5>Description</h5></label>
+          <textarea id="lastname" type="text" pInputTextarea> </textarea>
+      </div>
+      <div class="p-field p-col-12">
+          <label for="address"><h5>Address</h5></label>
+          <input id="address" type="text" rows="3" pInputText >
+      </div>
+
+      <div class="p-field p-col-12 p-md-3">
+          <label for="state"><h5>State</h5></label>
+          <p-dropdown inputId="state" [options]="states"  placeholder="Select" optionLabel="name"></p-dropdown>
+      </div>
+
+      <div class="p-field p-col-12 p-md-3">
+      <p-multiSelect defaultLabel="Select a Gouvernerat"  (onChange)="ChangePaxType($event, dd)" #dd [options]="gouvernerates" [(ngModel)]="selectedGov" optionLabel="name" optionValue="id"></p-multiSelect>
+    </div>
+
+      <div class="p-field p-col-12 p-md-3">
+          <label for="zip"><h5>Zip</h5></label>
+          <input id="zip" type="text" pInputText>
+      </div>
+  </div>
+</form>
+</ng-template>
+<p-footer>
+  <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+  <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveProduct()"></button>
+</p-footer>
+
+</p-dialog>
+<!-- <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog> -->
+<p-toast [style]="{marginTop: '80px'}"></p-toast>

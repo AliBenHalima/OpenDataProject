@@ -1,0 +1,127 @@
+
+<body>
+  <app-header></app-header>
+  <div class="container-fluid sb2">
+    <div class="row">
+      <app-sidebar></app-sidebar>
+<div class="sb2-2">
+  <div class="sb2-2-2">
+      <ul>
+          <li><a href="#"><i class="fa fa-home" aria-hidden="true"></i> Home</a>
+          </li>
+          <li class="active-bre"><a href="#"> Ui Form</a>
+          </li>
+      </ul>
+  </div>
+  <div class="sb2-2-3">
+      <div class="row">
+          <div class="col-md-12">
+              <div class="box-inn-sp">
+                  <div class="inn-title">
+                      <h4>Add New User</h4>
+                  </div>
+                  <div class="tab-inn">
+                    <form (submit)="Handleform()" [formGroup]="form" method="POST">
+                      <!-- <p-toast></p-toast> -->
+                        <div class="row">
+                            <div class="input-field col s12 ">
+                              <!-- <label for="first_name">Nom</label> -->
+                                <input  formControlName="name" placeholder="Name" ngModel name="name" id="name" type="text"  class="validate" >
+                                <div *ngIf="form.get('name').touched && !form.get('name').valid">
+                                  <div *ngIf="form.get('name').errors.required"></div>
+                                  name required
+
+                              </div>
+                            </div>
+                          </div>
+                            <div class="row">
+                            <div class="input-field col s12">
+                                <input  formControlName="email" placeholder="email"  ngModel name="email" id="email" type="email"  class="validate"  >
+                                <div *ngIf="form.get('email').touched && !form.get('email').valid">
+                                  <div *ngIf="form.get('email').errors.required"></div>
+                                  email required
+
+                              </div>
+                              </div>
+                          </div>
+                          <div class="row">
+                            <div class="input-field col s12  ">
+                                <input   formControlName="password" placeholder="password"  ngModel name="password" id="password" type="password" class="validate"  >
+                                <div *ngIf="form.get('password').touched && !form.get('password').valid">
+                                  <div *ngIf="form.get('password').errors.required"></div>
+                                  password required
+
+                              </div>
+                              </div>
+                          </div>
+
+                        <div class="row">
+                            <div class="input-field col s12  ">
+                                <input  formControlName="address" placeholder="Address"  ngModel name="Address" id="Address" type="text" class="validate"  >
+                                <div *ngIf="form.get('address').touched && !form.get('address').valid">
+                                  <div *ngIf="form.get('address').errors.required"></div>
+                                  addresse required
+
+                              </div>
+                              </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="input-field col s12  ">
+
+                              <p-fileUpload formControlName="photo" customUpload="true" [auto]="true" chooseLabel="Browse" name="demo[]"  (onSelect)="onSelect($event)"
+           accept="image/*" maxFileSize="10000000">
+
+            </p-fileUpload>
+            <div *ngIf="form.get('photo').touched && !form.get('photo').valid">
+              <div *ngIf="form.get('photo').errors.required"></div>
+              photo required
+
+          </div>
+                  </div>
+                  </div>
+
+                          <div class="row">
+                            <div class="input-field col s12  ">
+
+                              <p-dropdown  formControlName="etablissement_id"
+                              [style]="{'width':'200px','font-size': '15px'}"      placeholder="Select an Etablissement" [(ngModel)]="selectedEtab"  [options]="Etablissements" optionDisabled="active" optionLabel="nom" optionValue="id"   itemSize="200" ></p-dropdown>
+                                <div *ngIf="form.get('address').touched && !form.get('address').valid">
+                                  <div *ngIf="form.get('address').errors.required"></div>
+                                  Etablissement required
+
+                              </div>
+                              </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="input-field col s12  ">
+                              <p-dropdown  formControlName="role" [style]="{'width':'200px'}" placeholder="Select a role"  [options]="Roles"  [(ngModel)]="selectedrole"  optionDisabled="active" optionLabel="name" optionValue="id"   itemSize="200" ></p-dropdown>
+                                <div *ngIf="form.get('role').touched && !form.get('role').valid">
+                                  <div *ngIf="form.get('role').errors.required">
+
+                                  </div>
+                                  Role required
+
+                              </div>
+                              </div>
+                          </div>
+
+
+
+                        <div class="row">
+                            <div class="input-field col s12">
+                              <button  [disabled]="!form.valid" pButton  type="submit"   label="Save" ></button>
+                              <button  pButton type="button" label="Cancel" class="ml-4" (click)="handleCancel()"></button>
+                            </div>
+                        </div>
+                    </form>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+</div>
+</div>
+</body>

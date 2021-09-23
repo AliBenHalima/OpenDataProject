@@ -1,0 +1,67 @@
+version: "3.8"
+
+networks:
+  crc-net:
+    driver: bridge
+
+services:
+  database:
+    container_name: crc-database
+    image: mysql:5.7
+    restart: on-failure
+    volumes:
+      - db_volume:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    networks:
+      - crc-net
+    environment:
+      MYSQL_DATABASE: "crc"
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+      MYSQL_ROOT_PASSWORD: ""
+    logging:
+      driver: "none"
+
+  api:
+    image: crc.api
+    build:
+      context: ./components/api
+    ports:
+      - "8000:8000"
+    networks:
+      - crc-net
+    depends_on:
+      - database
+    environment:
+      DB_CONNECTION: mysql
+      DB_HOST: crc-database
+      DB_PORT: 3306
+      DB_DATABASE: crc
+      DB_USERNAME: root
+      DB_PASSWORD:
+    volumes:
+      - api_volume:/app/storage/app/public
+
+  web:
+    image: crc.web
+    build:
+      context: ./components/web
+    ports:
+      - "80:80"
+    networks:
+      - crc-net
+
+  classifier:
+     image: crc.classifier
+     build:
+       context: ./components/classifier
+     ports:
+       - "5000:5000"
+     networks:
+       - crc-net
+     environment:
+      MODEL_PATH: /app/models/model.h5
+      TOKENIZER_PATH: /app/models/tokenizer.pickle
+volumes:
+  db_volume:
+  api_volume:

@@ -1,0 +1,82 @@
+<app-header-user></app-header-user>
+<section>
+  <div class="tr-register">
+    <div class="tr-regi-form">
+      <h4>Create an Account</h4>
+      <p>It's free and always will be.</p>
+      <form (submit)="Handleform()" [formGroup]="form" method="POST" class="col s12">
+        <div class="row">
+          <div class="input-field col s12">
+            <input type="text" formControlName="name" class="validate">
+            <label> Name</label>
+            <div *ngIf="form.get('name').touched && !form.get('name').valid">
+              <div *ngIf="form.get('name').errors.required"></div>
+              name required
+
+          </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s12">
+            <input type="email" formControlName="email" class="validate" [email]="true">
+            <label>Email</label>
+            <div *ngIf="form.get('email').touched && !form.get('email').valid">
+              <div *ngIf="form.get('email').errors.required"></div>
+              email required
+
+          </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input type="text" formControlName="address" class="validate">
+            <label>address</label>
+            <div *ngIf="form.get('address').touched && !form.get('address').valid">
+              <div *ngIf="form.get('address').errors.required"></div>
+              address required
+
+          </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s12">
+            <input type="password" formControlName="password" class="validate">
+            <label>Password</label>
+            <div *ngIf="form.get('password').touched && !form.get('password').valid">
+              <div *ngIf="form.get('password').errors.required"></div>
+              password required
+
+          </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s12">
+            <p-fileUpload  name="demo[]"  accept="image/*" (onSelect)="onSelect($event)" maxFileSize="1000000"  customUpload="true" [auto]="true" chooseLabel="Add Photo"></p-fileUpload>
+            <label>Photo</label>
+            <div *ngIf="form.get('photo').touched && !form.get('photo').valid">
+              <div *ngIf="form.get('photo').errors.required"></div>
+              photo required
+
+          </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input type="submit" [disabled]="!form.valid"  class="waves-effect waves-light btn-large full-btn"> </div>
+        </div>
+      </form>
+      <p>Are you a already member ? <a [routerLink]="['/Login']"> Click to Login</a>
+      </p>
+    </div>
+  </div>
+</section>
+
+
+
+<app-footer-user></app-footer-user>
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+
+<p-toast [style]="{marginTop: '80px'}"></p-toast>

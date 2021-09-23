@@ -1,0 +1,63 @@
+
+<app-header-user></app-header-user>
+<app-user-under-header [Component]="'Posts section'" [ComponentDescription]="'Get all Posts'"></app-user-under-header>
+
+<section>
+  <div class="rows inn-page-bg com-colo">
+    <div class="container inn-page-con-bg events events-1 tb-space" id="inner-page-title">
+      <!-- TITLE & DESCRIPTION -->
+      <app-user-title-description [Component]="'Post'" [ComponentDescription]="'Get all Posts'" ></app-user-title-description>
+      <div class="col-md-9">
+        <div *ngIf="posts.length==0">
+          <p>No Posts available</p>
+        </div>
+
+
+
+      <div class="col-md-12" *ngIf="posts.length!=0">
+        <!-- <div class="col-md-4"> -->
+          <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search Post Name.." title="Type in a name">
+        <!-- </div>
+        <div class="col-md-4">
+          <input type="text" id="myInput" (ngModelChange)="SearchType($event)" placeholder="Search Event type.." title="Type in a type">
+        </div>
+        <div class="col-md-4">
+          <input type="text" id="myInput" (change)="SearchEtablissement($event)" placeholder="Search Event etablissement.." title="Type in an etablissement">
+        </div> -->
+            <table id="myTable">
+              <tbody>
+                <tr>
+                  <th>#</th>
+                  <th>Post Name</th>
+
+                  <th class="e_h1">Sujet</th>
+                  <th class="e_h1">Etablissement</th>
+                  <th class="e_h1">Date</th>
+                  <th class="e_h1">Posted by </th>
+
+                  <th>Details</th>
+                </tr>
+                <tr *ngFor="let post of posts; let i=index">
+                  <td>{{i + 1}}</td>
+                  <!-- <td><img  [src]='post.photo!="" ? "http://127.0.0.1:8000/storage/documents/Events/"+event.photo : "assets/TravelFront/images/eventimg.png" ' class="rounded" alt="..."><a class="events-title"> {{event.titre}} </a></td> -->
+                  <td class="e_h1">{{post.name}} </td>
+                  <td class="e_h1">{{post.sujet}}</td>
+                  <td class="e_h1">{{post.etablissements.nom}}</td>
+                  <td class="e_h1">{{post.created_at | date:'medium' }}</td>
+                  <td class="e_h1">{{post.users.roles[0].name}}</td>
+                  <td><a [style.background-color]="Etablissement.color" [routerLink]="['/user/posts/',post.id]" class="link-btn">More Details</a> </td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+
+      </div>
+
+        <app-user-sidebar></app-user-sidebar>
+
+    </div>
+  </div>
+</section>
+
+<app-footer-user></app-footer-user>

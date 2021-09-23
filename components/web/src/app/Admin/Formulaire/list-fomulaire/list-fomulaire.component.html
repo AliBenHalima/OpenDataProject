@@ -1,0 +1,103 @@
+<app-header></app-header>
+<div class="container-fluid sb2">
+  <div class="row">
+    <app-sidebar></app-sidebar>
+<div class="sb2-2">
+  <div class="sb2-2-2">
+      <ul>
+          <li><a href="#"><i class="fa fa-home" aria-hidden="true"></i> Home</a>
+          </li>
+          <li class="active-bre"><a href="#"> Ui Form</a>
+          </li>
+      </ul>
+  </div>
+  <div class="sb2-2-3">
+      <div class="row">
+
+
+<div class="card ">
+
+  <div class="d-flex flex-row">
+    <p-dropdown *ngIf="Localrole" [style]="{'justify-content' : 'flex-end !important' }" resetFilterOnHide="true" showClear="true" [(ngModel)]="SelectedSearchEtab" (onChange)="OnChangeEtab($event)" optionLabel="nom"  placeholder="Etablissements"  [options]="etablissements" optionValue="id" scrollHeigh="30px" [filter]="true" filterBy="nom"
+    [showClear]="true"></p-dropdown>
+  </div>
+
+    <p-toast [style]="{marginTop: '80px'}"></p-toast>
+    <h5>Forms</h5>
+
+    <p-toolbar styleClass="p-mb-4">
+      <ng-template pTemplate="left">
+          <button [disabled]="!permissions.includes('create forms')"  [routerLink]="['/admin/makeform']" pButton pRipple label="New"  icon="pi pi-plus" class="p-button-success p-mr-2"  ></button>
+          <!-- <button pButton pRipple [label]="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length"></button> -->
+      </ng-template>
+
+      <ng-template pTemplate="right" *ngIf="formulaires.length!=0">
+        <div class="p-d-flex">
+          <span  class="p-input-icon-right p-ml-auto">
+                    <i  [style]="{'top':'30%'}" class="pi pi-search "></i>
+                    <input pInputText type="text" (input)="dt4.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
+                </span>
+        </div>
+      </ng-template>
+
+
+  </p-toolbar>
+
+
+      <p-table #dt4  [value]="formulaires"  [scrollable]="true" [rows]="100" scrollHeight="600px" [globalFilterFields]="['designation','code']"
+      [virtualScroll]="true" [virtualRowHeight]="60" selectionMode="single">
+    <!-- <p-table > -->
+        <ng-template   pTemplate="header">
+            <tr>
+                <th pSortableColumn="designation">Designation <p-sortIcon field="designation"></p-sortIcon></th>
+                <th pSortableColumn="code">Code <p-sortIcon field="code"></p-sortIcon></th>
+                <th pSortableColumn="type">Type <p-sortIcon field="type"></p-sortIcon></th>
+                <th pSortableColumn="etablissement">Etablissement <p-sortIcon field="etablissement"></p-sortIcon></th>
+                <th pSortableColumn="tentatives">Tentatives <p-sortIcon field="tentatives"></p-sortIcon></th>
+                <!-- <th pSortableColumn="options">Attempts <p-sortIcon field="options"></p-sortIcon></th> -->
+
+                <th [style]="{'width':'60px'}">View </th>
+                <th *ngIf="permissions.includes('update forms')"  [style]="{'width':'60px'}">Edit </th>
+                <th *ngIf="permissions.includes('delete forms')" [style]="{'width':'60px'}" >Delete </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-formulaire>
+            <tr>
+
+              <td>{{formulaire.designation}}</td>
+                <td>{{formulaire.code}}</td>
+                <td>{{formulaire.formtype}}</td>
+                <td>{{formulaire.etablissements.nom}}</td>
+                <td><a [routerLink]="['/admin/formulairedetails/',formulaire.id]">View list...</a></td>
+
+                <td [style]="{'width':'60px'}"> <a [routerLink]="['/admin/showformulaire/',formulaire.id]"  > View</a></td>
+                <td *ngIf="permissions.includes('update forms')" [style]="{'width':'60px'}">   <a [routerLink]="['/admin/edit/',formulaire.id]" ><i class="fa fa-pencil-square-o" aria-hidden="true" (click)="editDocument(input)"></i></a> </td>
+                  <td *ngIf="permissions.includes('delete forms')" [style]="{'width':'60px'}">   <a (click)="DeleteDocument(input.id)" ><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>
+              </tr>
+              <!-- <app-crud-row [etab]="etab"></app-crud-row> -->
+        </ng-template>
+
+    </p-table>
+    <!--<div class="col-md-12 item text-center" *ngIf="formulaires.length==0" >
+
+
+      <p> No forms yet... </p>
+
+ </div> -->
+
+</div>
+
+
+  <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+
+  <p-toast [style]="{marginTop: '80px'}"></p-toast>
+
+
+
+
+      </div>
+    </div>
+  </div>
+
+  </div>
+  </div>

@@ -1,0 +1,78 @@
+<p-toast [style]="{ marginTop: '80px' }"></p-toast>
+<div class="card">
+  <div class="d-flex flex-row">
+    <div class="maindiv">
+      <div class="container">
+        <div class="justify-content-between w-100">
+          <div>
+
+            <form  [formGroup]="form">
+              <input class="form-control"  formControlName="title" (click)="get()"
+              id="title" type="text">
+
+              <div *ngFor="let question of questions; let i = index" class="form-row">
+                <div class="col-md-6">
+
+                  <app-question-component
+                    [question]="question"
+                    [SelectedOption]="SelectedOption"
+                    [Change]="test.bind(this)"
+                    [form]="form"
+                    (newItemEvent)="getQuestion($event)"
+                  ></app-question-component>
+                </div>
+                <div class="col-md-6">
+                  <button type="button" class="btn btn-danger" (click)="DeleteQuestion(question.key , i)">Delete</button>
+
+                </div>
+              </div>
+
+              <div class="form-row">
+                <button
+                  pButton
+                  (keyup.enter)="OnKeyUp()"
+                  (click)="new($event)"
+                  pRipple
+                  label="New Field"
+                  icon="pi pi-plus"
+                  class="p-button-success p-mr-2"
+                ></button>
+
+                <p-dropdown
+                  [options]="options"
+
+                  resetFilterOnHide="true"
+                  optionLabel="name"
+                  [(ngModel)]="SelectedOption"
+                  [ngModelOptions]="{standalone: true}"
+                  (onChange)="Change($event)"
+                  optionLabel="name"
+                  optionDisabled="inactive"
+                ></p-dropdown>
+
+              </div>
+              <div class="form-row">
+                <button
+                  pButton
+                  pRipple
+                 (click)="onSubmit()"
+                  label="Save"
+                  icon="pi pi-plus"
+                  class="p-button-success p-mr-2 mt-4"
+                  type="submit"
+                  [disabled]="!form.valid"
+                ></button>
+
+              </div>
+            </form>
+
+            <div *ngIf="payLoad" class="form-row">
+              <strong>Saved the following values</strong><br />{{ payLoad }}
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

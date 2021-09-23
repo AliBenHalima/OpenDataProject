@@ -1,0 +1,82 @@
+<div class="container-fluid sb1 ">
+<div class="row d-flex   backG">
+  <div class="mr-auto p-2">
+    <a  class="btn-close-menu"><i class="fa fa-times" aria-hidden="true"></i></a>
+   <!--  <a  class="atab-menu"><i class="fa fa-bars tab-menu" aria-hidden="true"></i></a>
+    <a  class="logo"><img src="assets/TravelFront/images/universty_de_sousse.png" alt="Logo">  </a> -->
+
+  </div>
+    <!--== LOGO ==-->
+
+  <!--   <div class="col-md-2 col-sm-3 col-xs-6 sb1-1 p-2">
+
+          <img  [src]='"http://127.0.0.1:8000/storage/images/Users/"+photo'  alt="">
+
+    </div> -->
+    <!--== SEARCH ==-->
+
+    <!--== NOTIFICATION ==-->
+    <!-- <div class="col-md-2 tab-hide">
+        <div class="top-not-cen">
+            <a class='waves-effect btn-noti' [routerLink]="['/admin/PrivateChat']"><i class="fa fa-commenting-o" aria-hidden="true"></i><span>{{MsgCount}}</span></a>
+             <a class='waves-effect btn-noti' ><i class="fa fa-envelope-o" aria-hidden="true"></i><span>0</span></a>
+            <a class='waves-effect btn-noti' ><i class="fa fa-tag" aria-hidden="true"></i><span>0</span></a>
+        </div>
+    </div> -->
+    <!--== MY ACCCOUNT ==-->
+    <!-- <div class="col-md-2 col-sm-3 col-xs-6"> -->
+      <!-- Dropdown Trigger -->
+
+      <!-- <a class='waves-effect dropdown-button top-user-pro' [routerLink]="['/Login']" (click)="Logout()" data-activates='top-menu'>Logout </a>
+
+      <a class='waves-effect dropdown-button top-user-pro' [routerLink]="['']" data-activates='top-menu'>Home </a> -->
+      <!-- <div class="top-not-cen"> -->
+
+        <!-- <a class='waves-effect btn-noti' ><i class="fa fa-envelope-o" aria-hidden="true"></i><span>0</span></a> -->
+        <!-- <a class='waves-effect btn-noti' ><i class="fa fa-tag" aria-hidden="true"></i><span>0</span></a> -->
+    <!-- </div>
+      </div> -->
+    <div class="col-md-4 col-sm-3 col-xs-6 max">
+<div class="d-flex justify-content-end ">
+  <div>
+    <a class='waves-effect btn-noti' [routerLink]="['/admin/PrivateChat']"><i class="fa fa-commenting-o" aria-hidden="true"></i>
+      <span> {{MsgCount}}</span></a>
+  </div>
+
+        <!-- Dropdown Trigger -->
+        <div class="dropdown">
+          <a class='waves-effect dropdown-button top-user-pro dropdown-toggle' id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  data-activates='top-menu'><img  [src]='"http://127.0.0.1:8000/storage/images/Users/"+photo'  alt="">My Account <i class="fa fa-angle-down" aria-hidden="true"></i>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item mb-3" [routerLink]="['']">  <i class="fa fa-home" aria-hidden="true"></i>  Home</a>
+            <a class="dropdown-item mb-3" [routerLink]="['/admin/userprofile/',id]"> <i class="fa fa-user" aria-hidden="true"></i>  Profile </a>
+            <a class="dropdown-item mb-3" [routerLink]="['/Login']" (click)="Logout()"> <i class="fa fa-sign-out" aria-hidden="true"></i>  Logout</a>
+          </div>
+        </div>
+
+      </div>
+
+        <!-- [routerLink]="['/admin/userprofile/',id]" -->
+        <!-- Dropdown Structure -->
+        <!-- <ul id='top-menu' class='dropdown-content top-menu-sty'>
+            <li><a href="setting.html" class="waves-effect"><i class="fa fa-cogs" aria-hidden="true"></i>Admin Setting</a>
+            </li>
+            <li><a href="hotel-all.html" class="waves-effect"><i class="fa fa-building-o" aria-hidden="true"></i> Hotels</a>
+            </li>
+            <li><a href="package-all.html" class="waves-effect"><i class="fa fa-umbrella" aria-hidden="true"></i> Tour Packages</a>
+            </li>
+            <li><a href="event-all.html" class="waves-effect"><i class="fa fa-flag-checkered" aria-hidden="true"></i> Events</a>
+            </li>
+            <li><a href="offers.html" class="waves-effect"><i class="fa fa-tags" aria-hidden="true"></i> Offers</a>
+            </li>
+            <li><a href="user-add.html" class="waves-effect"><i class="fa fa-user-plus" aria-hidden="true"></i> Add New User</a>
+            </li>
+            <li><a href="#" class="waves-effect"><i class="fa fa-undo" aria-hidden="true"></i> Backup Data</a>
+            </li>
+            <li class="divider"></li>
+            <li><a href="#" class="ho-dr-con-last waves-effect"><i class="fa fa-sign-in" aria-hidden="true"></i> Logout</a>
+            </li>
+        </ul> -->
+    </div>
+</div>
+</div>

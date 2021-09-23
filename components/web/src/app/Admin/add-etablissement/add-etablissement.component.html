@@ -1,0 +1,148 @@
+
+<body>
+  <app-header></app-header>
+  <div class="container-fluid sb2">
+    <div class="row">
+      <app-sidebar></app-sidebar>
+<div class="sb2-2">
+  <div class="sb2-2-2">
+      <ul>
+          <li><a href="#"><i class="fa fa-home" aria-hidden="true"></i> Home</a>
+          </li>
+          <li class="active-bre"><a href="#"> Ui Form</a>
+          </li>
+      </ul>
+  </div>
+  <div class="sb2-2-3">
+      <div class="row">
+          <div class="col-md-12">
+              <div class="box-inn-sp">
+                  <div class="inn-title">
+                      <h4>Add New Etablissement</h4>
+
+                  </div>
+                  <div class="tab-inn">
+                    <form (submit)="HandleForm()" [formGroup]="loginform"  >
+
+                      <div class="row">
+                        <div class="input-field col s12 ">
+                          <p-fileUpload formControlName="photo" #fubauto name="demo[]"  accept="image/*" (onSelect)="onSelect($event)" maxFileSize="1000000000"  customUpload="true"   [auto]="true" chooseLabel="Select Photo"></p-fileUpload>
+
+                             <div *ngIf="loginform.get('photo').touched && !loginform.get('photo').valid">
+                              <div *ngIf="loginform.get('photo').errors.required"></div>
+                              photo required
+
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col">
+                          <div class="form-group">
+                            <label> <span class="d-none d-xl-inline">Name</span></label>
+                            <input class="validate" formControlName="nom" class="form-control" type="text" name="name" placeholder="Name" >
+                          </div>
+                        </div>
+                      </div>
+
+
+                        <div class="row">
+                          <div class="col">
+                            <div class="form-group">
+                              <label> <span class="d-none d-xl-inline">Email</span></label>
+                              <input formControlName="email" class="form-control" type="email" class="validate" name="email" placeholder="Email" >
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                        <div class="col">
+                          <div class="form-group">
+                            <label> <span class="d-none d-xl-inline">Phone Number</span></label>
+                            <input formControlName="phone_number" class="form-control" type="Number" class="validate" name="email" placeholder="Phone Number" >
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col">
+                          <div class="form-group">
+                              <!-- <input formControlName="description" placeholder="Description"  ngModel name="description" id="last_name" type="text"  class="validate"> -->
+                              <p-editor formControlName="description" [(ngModel)]="description" [style]="{'height':'320px'}"></p-editor>
+
+                          </div>
+                        </div>
+                      </div>
+
+
+
+
+                        <div class="row">
+                          <div class="col">
+                            <div class="form-group">
+                              <label> <span class="d-none d-xl-inline">Short Description</span></label>
+                              <input class="validate" formControlName="short_description" class="form-control" type="text" name="Short Description" placeholder="Short Description" >
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col">
+                            <div class="form-group">
+                              <label> <span class="d-none d-xl-inline">Video ID</span></label>
+                              <input class="validate" formControlName="video" class="form-control" type="text" name="Video ID" placeholder="SVideo ID" >
+                            </div>
+                          </div>
+                        </div>
+
+
+                        <div class="row">
+                          <div class="col">
+                            <div class="form-group">
+                              <label> <span class="d-none d-xl-inline">Address</span></label>
+                              <input class="validate" formControlName="addresse" class="form-control" type="text" name="Short Description" placeholder="addresse" >
+                            </div>
+                          </div>
+                        </div>
+
+
+                        <div class="row">
+                          <div class="col">
+                            <div class="form-group">
+                              <label> <span class="d-none d-xl-inline">Google maps link</span></label>
+                              <textarea class="validate" formControlName="mapLocation" class="form-control" type="text" name="mapLocation" placeholder="Google maps link" ></textarea>
+                            </div>
+                          </div>
+                        </div>
+
+
+
+                      <div class="row">
+                        <div class="col">
+                          <div class="form-group">
+                            <label> <span class="d-none d-xl-inline"> Color palette</span></label>
+                          </div>
+                            <div class="col">
+                            <p-colorPicker formControlName="color"  [(ngModel)]="color"></p-colorPicker> {{color}}
+
+                          </div>
+                        </div>
+                      </div>
+
+
+
+                        <div class="row">
+                            <div class="input-field col s12">
+                              <button pButton  type="submit"   label="Save" ></button>
+                              <button  pButton type="button" label="Cancel" class="ml-4" (click)="handleCancel()"></button>
+                            </div>
+                        </div>
+                    </form>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+</div>
+</div>
+</body>

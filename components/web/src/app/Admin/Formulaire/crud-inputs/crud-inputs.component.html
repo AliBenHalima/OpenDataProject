@@ -1,0 +1,220 @@
+
+<div class="card ">
+  <div class="d-flex flex-row">
+
+  </div>
+    <p-toast [style]="{marginTop: '80px'}"></p-toast>
+    <h5>Single Column</h5>
+
+      <p-toolbar styleClass="p-mb-4">
+          <ng-template pTemplate="left">
+            <button [disabled]="!Allpermissions.includes('create formelements')" (click)="openNew()" pButton pRipple label="New"  icon="pi pi-plus" class="p-button-success p-mr-2"  ></button>
+              <!-- <button pButton pRipple [label]="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length"></button> -->
+          </ng-template>
+
+          <ng-template pTemplate="right">
+            <div class="p-d-flex">
+              <span  class="p-input-icon-right p-ml-auto">
+                        <i  [style]="{'top':'30%'}" class="pi pi-search "></i>
+                        <input pInputText type="text" (input)="dt2.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
+                    </span>
+            </div>
+          </ng-template>
+
+
+  <!--
+          <ng-template pTemplate="right">
+              <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import" class="p-mr-2 p-d-inline-block"></p-fileUpload>
+              <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help"></button>
+          </ng-template> -->
+      </p-toolbar>
+      <p-table #dt2 [value]="inputs"  [scrollable]="true" [rows]="100" scrollHeight="600px" [globalFilterFields]="['label']"
+      [virtualScroll]="true" [virtualRowHeight]="60" selectionMode="single">
+    <!-- <p-table > -->
+        <ng-template   pTemplate="header">
+            <tr>
+                <th pSortableColumn="label">label <p-sortIcon field="label"></p-sortIcon></th>
+                <th pSortableColumn="type">type <p-sortIcon field="type"></p-sortIcon></th>
+                <th pSortableColumn="type">input_type <p-sortIcon field="type"></p-sortIcon></th>
+                <th pSortableColumn="options">options <p-sortIcon field="options"></p-sortIcon></th>
+
+                <!-- <th [style]="{'width':'60px'}">View </th>
+                <th  [style]="{'width':'60px'}">Edit </th>
+                <th [style]="{'width':'60px'}" >Delete </th> -->
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-input>
+            <tr>
+                <td>{{input.label}}</td>
+                <td>{{input.type}}</td>
+
+                <td *ngIf="input.textBoxtypes==null">Default text</td>
+                <td *ngIf="input.textBoxtypes!=null">{{input.textBoxtypes}}</td>
+
+                <td *ngIf="input.options==null">no options available</td>
+                <td *ngIf="input.options!=null">{{input.options}}</td>
+              </tr>
+              <!-- <app-crud-row [etab]="etab"></app-crud-row> -->
+        </ng-template>
+    </p-table>
+  </div>
+
+
+  <p-dialog [contentStyle]="{'overflow':'visible'}" [(visible)]="displayModal" [style]="{width: '650px'}" header="Input Details" [modal]="true" styleClass="p-fluid" (onHide)="hideDialog()">
+    <!-- <div  [style]="{'width':'100%'}" > -->
+
+    <ng-template pTemplate="content" [style]="{'width':'100%'}">
+
+      <form  [formGroup]="form">
+      <div class="p-fluid p-formgrid p-grid">
+        <div class="p-field p-col-12 p-md-6">
+            <label for="label" ><h5>label</h5></label>
+            <input formControlName="label" id="label" type="text" pInputText>
+        </div>
+
+        <div class="p-field p-col-12 p-md-6">
+          <label for="type" ><h5>type</h5></label>
+          <p-dropdown  formControlName="type"   [style]="{'justify-content' : 'flex-end !important' }" resetFilterOnHide="true" showClear="true" [(ngModel)]="SelectedType" (onChange)="OnChangeType($event)" [ngModelOptions]="{standalone: true}" optionLabel="name"  placeholder="Type"  [options]="InputTypes" optionValue="name" scrollHeigh="30px" [filter]="true" filterBy="name"
+          [showClear]="true"></p-dropdown>
+          <!-- <input formControlName="description" id="description" type="text" pInputText> -->
+      </div>
+
+
+
+      <div [ngSwitch]="SelectedType">
+
+        <div *ngSwitchCase="'dropdown'" class="mt-4 mb-4">
+
+  <div *ngFor="let item of options; let i = index ">
+    <div >
+      <div class="row">
+        <div class="col-md-10"  (click)="toggleDisable($event)" >
+          <input [attr.id]="item" type="text"  value={{item}} (keyup.enter)="update2($event,i)" disabled required >
+
+        </div>
+        <div class="col-md-2">
+          <a> <i class="fa fa-trash" aria-hidden="true" (click)="DeleteOption(i)"></i> </a>
+        </div>
+      </div>
+
+  </div>
+  </div>
+
+  <input type="text" id="AddInput"  (keyup.enter)="SaveOption($event)" [(ngModel)]="InputValue"   [ngModelOptions]="{standalone: true}" value="">
+
+</div>
+
+<!-- ///////////// checkbox -->
+
+<div *ngSwitchCase="'checkbox'" class="mt-4 mb-4">
+
+  <div class="p-field p-col-12 p-md-6">
+    <label for="Sujet" ><h5>Options</h5></label>
+
+
+</div>
+
+
+<div *ngFor="let item of options; let i = index ">
+  <div >
+    <div class="row">
+      <div class="col-md-10"  (click)="toggleDisable($event)" >
+        <input [attr.id]="item" type="text"  value={{item}} (keyup.enter)="update2($event,i)" disabled required >
+
+      </div>
+      <div class="col-md-2">
+        <a> <i class="fa fa-trash" aria-hidden="true" (click)="DeleteOption(i)"></i> </a>
+      </div>
+    </div>
+
+</div>
+</div>
+
+<input type="text" id="AddInput"  (keyup.enter)="SaveOption($event)" [(ngModel)]="InputValue"   [ngModelOptions]="{standalone: true}" value="">
+
+</div>
+
+
+<div *ngSwitchCase="'radiobox'" class="mt-4 mb-4">
+  <div class="p-field p-col-12 p-md-6">
+    <label for="Sujet" ><h5>Options</h5></label>
+
+
+</div>
+
+
+<div *ngFor="let item of options; let i = index ">
+  <div >
+    <div class="row">
+      <div class="col-md-10"  (click)="toggleDisable($event)" >
+        <input [attr.id]="item" type="text"  value={{item}} (keyup.enter)="update2($event,i)" disabled required >
+
+      </div>
+      <div class="col-md-2">
+        <a> <i class="fa fa-trash" aria-hidden="true" (click)="DeleteOption(i)"></i> </a>
+      </div>
+    </div>
+
+</div>
+</div>
+
+<input type="text" id="AddInput"  (keyup.enter)="SaveOption($event)" [(ngModel)]="InputValue"   [ngModelOptions]="{standalone: true}" value="">
+
+</div>
+
+<div *ngSwitchCase="'textbox'" class="mt-4 mb-4">
+  <div class="p-field p-col-12 p-md-6">
+    <label for="Sujet" ><h5>Input type</h5></label>
+    <p-dropdown  formControlName="textBoxtypes"   [style]="{'justify-content' : 'flex-end !important' }" resetFilterOnHide="true" showClear="true" [(ngModel)]="Selected_textBoxtypes"  [ngModelOptions]="{standalone: true}" optionLabel="name"  placeholder="input type"  [options]="textBoxtypes" optionValue="name" scrollHeigh="30px" [filter]="true" filterBy="name"
+    [showClear]="true"></p-dropdown>
+</div>
+
+
+</div>
+
+<div *ngSwitchCase="'Relationship'" class="mt-4 mb-4">
+  <div class="p-field p-col-12 p-md-6">
+    <label for="Sujet" ><h5>Table</h5></label>
+    <p-dropdown formControlName="textBoxtypes"    [style]="{'justify-content' : 'flex-end !important' }" resetFilterOnHide="true" showClear="true" [(ngModel)]="Selected_Relationships"  [ngModelOptions]="{standalone: true}" optionLabel="TableName"  placeholder="Relationship..."  [options]="Relationships" optionValue="TableName" scrollHeigh="30px" [filter]="true" filterBy="name" (onChange)="change($event)"
+    [showClear]="true"></p-dropdown>
+
+
+    <div [ngSwitch]="Selected_Relationships">
+      <div *ngSwitchCase="'documents'" class="mt-4 mb-4">
+        <p-dropdown formControlName="relationship_label"    [style]="{'justify-content' : 'flex-end !important' }" resetFilterOnHide="true" showClear="true" [(ngModel)]="Selected_RelationshipsLabel"  [ngModelOptions]="{standalone: true}"  placeholder="Relationship..."  [options]="TableFields" scrollHeigh="30px"
+        [showClear]="true"></p-dropdown>
+
+      </div>
+
+      <div *ngSwitchCase="'sujet_documents'" class="mt-4 mb-4">
+        <p-dropdown  formControlName="relationship_label"   [style]="{'justify-content' : 'flex-end !important' }" resetFilterOnHide="true" showClear="true" [(ngModel)]="Selected_RelationshipsLabel"  [ngModelOptions]="{standalone: true}"  placeholder="Relationship..."  [options]="TableFields" scrollHeigh="30px"
+        [showClear]="true"></p-dropdown>
+
+      </div>
+    </div>
+
+</div>
+
+
+</div>
+
+</div>
+
+
+
+
+    </div>
+  </form>
+
+  </ng-template>
+  <p-footer>
+    <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+    <button *ngIf="save" pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="HandleForm()"></button>
+    <button *ngIf="update" pButton pRipple label="Update" icon="pi pi-check" class="p-button-text" (click)="updateDocument()"></button>
+
+  </p-footer>
+  </p-dialog>
+
+  <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+
+  <p-toast [style]="{marginTop: '80px'}"></p-toast>

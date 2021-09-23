@@ -1,0 +1,120 @@
+
+<app-header></app-header>
+<div class="container-fluid sb2">
+  <div class="row">
+    <app-sidebar></app-sidebar>
+<div class="sb2-2">
+
+  <div class="sb2-2-2">
+      <ul>
+          <li><a href="#"><i class="fa fa-home" aria-hidden="true"></i> Home</a>
+          </li>
+          <li class="active-bre"><a href="#"> Forms</a>
+          </li>
+      </ul>
+  </div>
+
+  <div class="sb2-2-3">
+    <div class="row">
+
+  <p-toast [style]="{ marginTop: '80px' }"></p-toast>
+  <div class="card">
+    <div class="d-flex flex-row">
+      <div class="maindiv">
+        <div class="container">
+          <div class="justify-content-between w-100">
+            <div>
+              <form (ngSubmit)="onSubmit()" [formGroup]="form">
+
+              <h3 class="text-center"
+              [id]="FormData.id" type="text" >{{FormData.name}}</h3>
+
+                <div *ngFor="let question of FormData.elements; let i = index" class="form-row">
+
+                  <div [ngSwitch]="question.answerType">
+
+                    <div *ngSwitchCase="'textbox'" class="mt-4 mb-4 question ">
+                      <h5 class=""
+                      [id]="FormData.id" type="text" >{{i + 1}}. {{question.value}} <span *ngIf="question.required" class="asteriskField text-danger">*</span>
+                    </h5>
+
+                    <input class="form-control"   placeholder="write your answer..."
+                    [id]="question.name" [required]="question.required">
+
+                    </div>
+
+                    <div *ngSwitchCase="'textarea'" class="mt-4 mb-4 question">
+                      <h5 class=""
+                      [id]="FormData.id" type="text" >{{i+1}}. {{question.value}} <span *ngIf="question.required" class="asteriskField text-danger">*</span>
+                    </h5>
+
+                    <textarea cols="15" rows="10" class="form-control"   placeholder="write your answer..."
+                    [id]="question.name" [required]="question.required"></textarea>
+
+                    </div>
+
+
+                  <div *ngSwitchCase="'checkbox'" class="mt-4 mb-4 question">
+                    <h5 class=""
+                    [id]="FormData.id" type="text" >{{i+1}}. {{question.value}} <span *ngIf="question.required" class="asteriskField text-danger">*</span>
+                  </h5>
+
+                  <div *ngFor="let opt of question.elementvalues" class="p-field-checkbox">
+                      <p-checkbox name="group2" value="opt.value" [value]="opt.value" ></p-checkbox>
+                      <label [for]="opt.name">{{opt.value}}</label>
+                  </div>
+                  <!-- <select [id]="question.name" [required]="question.required" >
+                    <option *ngFor="let opt of question.elementvalues" [value]="opt.value">{{opt.value}}</option>
+                  </select> -->
+
+
+                </div>
+
+
+                <div *ngSwitchCase="'dropdown'" class="mt-4 mb-4 question">
+                  <h5 class=""
+                  [id]="FormData.id" type="text" >{{i+1}}. {{question.value}} <span *ngIf="question.required" class="asteriskField text-danger">*</span>
+                </h5>
+
+                <p-dropdown [options]="question.elementvalues" optionLabel="name" optionValue="value" placeholder="Select an ption"></p-dropdown>
+              </div>
+
+
+              <div *ngSwitchCase="'date'" class="mt-4 mb-4 question">
+                <h5 class=""
+                [id]="FormData.id" type="text" >{{i+1}}. {{question.value}} <span *ngIf="question.required" class="asteriskField text-danger">*</span>
+              </h5>
+
+              <input type="date">
+
+            </div>
+                  </div>
+                </div>
+
+             <div class="form-row">
+                  <button
+                    pButton
+                    pRipple
+                    label="Save"
+                    icon="pi pi-plus"
+                    class="p-button-success p-mr-2 mt-4"
+                    type="submit"
+                  ></button>
+                </div>
+
+              </form>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    </div>
+  </div>
+</div>
+
+</div>
+</div>

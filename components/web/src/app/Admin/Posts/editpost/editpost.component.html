@@ -1,0 +1,77 @@
+<body>
+  <app-header></app-header>
+  <div class="container-fluid sb2">
+    <div class="row">
+      <app-sidebar></app-sidebar>
+<div class="sb2-2">
+  <div class="sb2-2-2">
+      <ul>
+          <li><a href="#"><i class="fa fa-home" aria-hidden="true"></i> Home</a>
+          </li>
+          <li class="active-bre"><a href="#"> Ui Form</a>
+          </li>
+      </ul>
+  </div>
+  <div class="sb2-2-3">
+      <div class="row">
+          <div class="col-md-12">
+   <div class="box-inn-sp">
+       <div class="inn-title">
+           <h4>Edit Post</h4>
+       </div>
+
+       <div class="tab-inn">
+         <form  [formGroup]="form">
+           <div class="p-fluid p-formgrid p-grid">
+             <div class="p-field p-col-12 p-md-6">
+                 <label for="name" ><h5>name</h5></label>
+                 <input formControlName="name" id="name" type="text" pInputText>
+             </div>
+
+             <div class="p-field p-col-12 p-md-6">
+               <label for="sujet" ><h5>sujet</h5></label>
+               <input formControlName="sujet" id="sujet" type="text" pInputText>
+           </div>
+
+           <div class="p-field p-col-12 p-md-6">
+             <label for="firstname" ><h5>description</h5></label>
+           <!--  <p  formControlName="description" id="description"></p> -->
+             <p-editor formControlName="description" [(ngModel)]="description" [style]="{'height':'320px'}"></p-editor>
+            </div>
+
+           <!--<input formControlName="description" id="description" type="text" pInputText>-->
+
+
+         <div class="p-field p-col-12 p-md-6">
+          <label for="piece" ><h5>piece</h5></label>
+          <p-fileUpload (onRemove)="onRemoveImage($event)" multiple="multiple" formControlName="piece"   chooseLabel="Browse" name="demo[]"  (onSelect)="onSelect($event)"
+               accept=".pdf" maxFileSize="1000000">
+               <!--
+                <ng-template pTemplate="content">
+                    <ul *ngIf="uploadedFiles.length">
+                                <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
+                            </ul>
+                        </ng-template>
+                        -->
+                </p-fileUpload>
+              </div>
+
+                   </div>
+                   <div class="row">
+                    <div class="input-field col s12">
+                      <button  [disabled]="!form.valid" pButton  (click)="Handleform()"  label="Update" ></button>
+                      <button  pButton type="button" label="Cancel" class="ml-4" (click)="handleCancel()"></button>
+                        <!-- <input type="submit" class="waves-effect waves-light btn-large"> -->
+                        <!-- <input  class="waves-effect waves-light btn-large"> -->
+                    </div>
+                </div>
+                  </form>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+</div>
+</div>
+</body>

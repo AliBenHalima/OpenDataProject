@@ -1,0 +1,12 @@
+<tr >
+  <td>{{etab.nom}}</td>
+  <td>{{etab.description}}</td>
+  <td>{{etab.addresse}}</td>
+  <p-dropdown optionLabel="name"  [options]="users" scrollHeigh="30px" ></p-dropdown>
+  <!-- <td>{{product.quantity}}</td>
+  <td>{{product.price | currency: 'USD'}} </td> -->
+  <!-- <i class=" ml-4 pi  pi-pencil" style="font-size: 2rem"></i> -->
+  <td><a   ><i class="fa fa-eye " aria-hidden="true"></i></a></td>
+  <td>   <a  [routerLink]="['/editetab/',etab.id]"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a> </td>
+    <td>   <a (click)="DeleteEtab(etab)" ><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>
+</tr>

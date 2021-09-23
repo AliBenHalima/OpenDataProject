@@ -1,0 +1,63 @@
+
+<div class="card">
+  <p-dropdown *ngIf="Localrole" resetFilterOnHide="true" showClear="true" [(ngModel)]="SelectedETab" (onChange)="OnChangeEtab($event)" optionLabel="nom"  placeholder="Etablissements"  [options]="Etablissements" optionValue="id" scrollHeigh="30px" [filter]="true" filterBy="nom"
+	[showClear]="true"></p-dropdown>
+  <h5>Single Column</h5>
+  <p-toast [style]="{marginTop: '80px'}" styleClass="custom-toast"></p-toast>
+    <p-toolbar styleClass="p-mb-4">
+        <ng-template pTemplate="left">
+          <button [disabled]="!permissions.includes('create users')"   [routerLink]="['/admin/adduser']" pButton pRipple label="New"  icon="pi pi-plus" class="p-button-success p-mr-2"  ></button>
+            <!-- <button pButton pRipple [label]="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length"></button> -->
+        </ng-template>
+
+
+          <ng-template pTemplate="right">
+            <div class="p-d-flex">
+              <span  class="p-input-icon-right p-ml-auto">
+                        <i  [style]="{'top':'30%'}" class="pi pi-search "></i>
+                        <input pInputText type="text" (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
+                    </span>
+            </div>
+          </ng-template>
+
+
+
+    </p-toolbar>
+    <p-table #dt1 [value]="Users"  [scrollable]="true" [rows]="100" scrollHeight="600px" [globalFilterFields]="['name','address','email','role_id']"
+    [virtualScroll]="true" [virtualRowHeight]="60" selectionMode="single">
+  <!-- <p-table > -->
+    <ng-template pTemplate="header" >
+
+          <tr>
+            <th  >photo </th>
+              <th  pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
+              <th  pSortableColumn="email">Email <p-sortIcon field="email"></p-sortIcon></th>
+              <th  pSortableColumn="address">Addresse <p-sortIcon field="address"></p-sortIcon></th>
+              <th [style]="{'width':'70px'}" pSortableColumn="role_id">Role <p-sortIcon field="role_id"></p-sortIcon></th>
+              <th  [style]="{'width':'180px'}" pSortableColumn="etablissement_id">Etablissement <p-sortIcon field="etablissement_id"></p-sortIcon> </th>
+
+              <th *ngIf="permissions.includes('update users')" [style]="{'width':'60px'}" >Edit </th>
+              <!-- <th [style]="{'width':'60px'}" >Edit </th> -->
+
+              <th *ngIf="permissions.includes('delete users')" [style]="{'width':'60px'}" >Delete </th>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-user>
+          <tr>
+            <td><img  class="rounded" [src]='environment+"/storage/images/Users/"+user.photo' alt="no image" width="60" height="60"></td>
+            <td>{{user.name}}</td>
+              <td>{{user.email}}</td>
+              <td>{{user.address}}</td>
+              <td [style]="{'width':'120px'}" >{{user.role_name}}</td>
+              <td [style]="{'width':'180px'}"  ><input type="text" pInputText placeholder={{user.etab_nom}} disabled=true></td>
+
+              <td *ngIf="permissions.includes('update users')" [style]="{'width':'60px'}"><a [routerLink]="['/admin/userprofile/',user.id]"  ><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
+                <td *ngIf="permissions.includes('delete users')" [style]="{'width':'60px'}">   <a (click)="DeleteUser(user.id)" ><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>
+            </tr>
+      </ng-template>
+  </p-table>
+
+</div>
+
+
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>

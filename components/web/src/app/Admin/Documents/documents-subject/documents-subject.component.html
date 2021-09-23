@@ -1,0 +1,118 @@
+<app-header></app-header>
+<div class="container-fluid sb2">
+  <div class="row">
+    <app-sidebar></app-sidebar>
+<div class="sb2-2">
+  <div class="sb2-2-2">
+      <ul>
+          <li><a ><i class="fa fa-home" aria-hidden="true"></i> Home</a>
+          </li>
+          <li class="active-bre"><a href="#">Documents</a>
+          </li>
+      </ul>
+  </div>
+  <div class="sb2-2-3">
+      <div class="row">
+
+
+<div class="card ">
+    <div class="d-flex flex-row">
+
+    </div>
+      <p-toast [style]="{marginTop: '80px'}"></p-toast>
+
+
+        <p-toolbar styleClass="p-mb-4">
+            <ng-template pTemplate="left">
+              <button [disabled]="!permissions.includes('create documentsSubject')"  (click)="openNew()" pButton pRipple label="New"  icon="pi pi-plus" class="p-button-success p-mr-2"  ></button>
+                <!-- <button pButton pRipple [label]="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length"></button> -->
+            </ng-template>
+
+            <ng-template pTemplate="right">
+              <div class="p-d-flex">
+                <span  class="p-input-icon-right p-ml-auto">
+                          <i  [style]="{'top':'30%'}" class="pi pi-search "></i>
+                          <input pInputText type="text" (input)="dt2.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
+                      </span>
+              </div>
+            </ng-template>
+
+
+    <!--
+            <ng-template pTemplate="right">
+                <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import" class="p-mr-2 p-d-inline-block"></p-fileUpload>
+                <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help"></button>
+            </ng-template> -->
+        </p-toolbar>
+        <p-table #dt2 [value]="FetchSujets"  [scrollable]="true" [rows]="100" scrollHeight="600px" [globalFilterFields]="['nom']"
+        [virtualScroll]="true" [virtualRowHeight]="60" selectionMode="single">
+      <!-- <p-table > -->
+          <ng-template   pTemplate="header">
+              <tr>
+                  <th pSortableColumn="nom">Nom <p-sortIcon field="nom"></p-sortIcon></th>
+
+                  <th pSortableColumn="date">created_At <p-sortIcon field="date"></p-sortIcon></th>
+
+
+                  <th *ngIf="permissions.includes('update documentsSubject')" [style]="{'width':'60px'}">Edit </th>
+                  <th *ngIf="permissions.includes('delete documentsSubject')" [style]="{'width':'60px'}" >Delete </th>
+              </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-subject>
+              <tr>
+                  <td>{{subject.nom}}</td>
+                  <td>{{subject.created_at | date:'medium'}}</td>
+
+
+                  <td *ngIf="permissions.includes('update documentsSubject')" [style]="{'width':'60px'}">   <a ><i class="fa fa-pencil-square-o" aria-hidden="true" (click)="editSubject(subject)"></i></a> </td>
+                    <td *ngIf="permissions.includes('delete documentsSubject')" [style]="{'width':'60px'}">   <a (click)="deleteSubject(subject.id)" ><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>
+                </tr>
+                <!-- <app-crud-row [etab]="etab"></app-crud-row> -->
+          </ng-template>
+      </p-table>
+    </div>
+
+
+    <p-dialog [contentStyle]="{'overflow':'visible'}" [(visible)]="displayModal" [style]="{width: '650px',height: 'auto'}" header="Product Details" [modal]="true" styleClass="p-fluid" (onHide)="hideDialog()">
+      <!-- <div  [style]="{'width':'100%'}" > -->
+
+      <ng-template pTemplate="content" [style]="{'width':'100%'}">
+
+        <form  [formGroup]="form">
+        <div class="p-fluid p-formgrid p-grid">
+          <div class="p-field p-col-12 p-md-6">
+              <label for="firstname" ><h5>nom</h5></label>
+              <input formControlName="nom" id="nom" type="text" pInputText>
+          </div>
+
+
+      </div>
+    </form>
+
+    </ng-template>
+    <p-footer>
+      <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+      <button *ngIf="save" pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="HandleForm()"></button>
+      <button *ngIf="update" pButton pRipple label="Update" icon="pi pi-check" class="p-button-text" (click)="updateSubject()"></button>
+
+    </p-footer>
+
+
+    <!-- </div> -->
+    </p-dialog>
+
+    <!-- <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog> -->
+    <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+
+    <p-toast [style]="{marginTop: '80px'}"></p-toast>
+
+
+
+
+
+      </div>
+    </div>
+  </div>
+
+  </div>
+  </div>

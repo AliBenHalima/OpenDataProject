@@ -1,0 +1,85 @@
+<p-dropdown *ngIf="Localrole" [(ngModel)]="SelectedETab" (onChange)="OnChangeEtab($event)" optionLabel="nom"  placeholder="Etablissements"  [options]="etablissements" optionValue="id" scrollHeigh="30px" [filter]="true" filterBy="nom"
+	[showClear]="true"></p-dropdown>
+<p-fullCalendar [events]="events" [options]="options"></p-fullCalendar>
+
+<p-dialog [contentStyle]="{'overflow-y': 'auto', 'overflow-x': 'hidden'}" [(visible)]="display" [style]="{width: '650px',height: '550px'}" header="Add new event" [modal]="true" styleClass="p-fluid" (onHide)="hideDialog()">
+
+  <ng-template  pTemplate="content" [style]="{'width':'100%'}">
+
+    <form  [formGroup]="form">
+      <div class="p-fluid p-formgrid p-grid title" >
+        <div class="p-field p-col-12 p-md-6" *ngIf="update">
+            <label for="Image" ><h5>Image</h5></label>
+            <img formControlName="photo" [src]='photo!="" ? environment+"/storage/documents/Events/"+photo : "assets/TravelFront/images/eventimg.png" ' class="rounded float-right" alt="...">
+          </div>
+      </div>
+
+      <div class="p-fluid p-formgrid p-grid title" >
+        <div class="p-field p-col-12 p-md-6">
+          <p-fileUpload *ngIf="update" #fubauto formControlName="photo"   name="demo[]"  accept="image/*" (onSelect)="onSelect($event)" maxFileSize="10000000"  url="./upload.php"  customUpload="true"   [auto]="true" chooseLabel="Update image"></p-fileUpload>
+        </div>
+  </div>
+
+    <div class="p-fluid p-formgrid p-grid title" >
+      <div class="p-field p-col-12 p-md-6">
+          <label for="firstname" ><h5>titre</h5></label>
+          <input formControlName="titre" id="titre" type="text" pInputText>
+      </div>
+
+      <div class="p-field p-col-12 p-md-6">
+        <label for="description" ><h5>description</h5></label>
+        <input formControlName="description" id="description" type="text" pInputText>
+    </div>
+
+    <div class="p-field p-col-12 p-md-6">
+      <label for="contenu" ><h5>localisation</h5></label>
+      <input formControlName="localisation" id="description" type="text" pInputText>
+
+  </div>
+
+
+  <div *ngIf="save" class="p-field p-col-12 p-md-6">
+    <p-fileUpload #fubauto formControlName="photo"   name="demo[]"  accept="image/*" (onSelect)="onSelect($event)" maxFileSize="10000000"  url="./upload.php"  customUpload="true"   [auto]="true" chooseLabel="Select an image"></p-fileUpload>
+
+  </div>
+
+  <div class="p-field p-col-12 p-md-6">
+    <label for="date_debut" ><h5>date_debut</h5></label>
+    <p-calendar [inline]="true"  [(ngModel)]="date_debut" formControlName="date_debut" [showTime]="true" inputId="time" dateFormat="yy.mm.dd "></p-calendar>
+
+</div>
+
+
+<div class="p-field p-col-12 p-md-6 mb-4">
+  <label for="date_debut" ><h5>date_fin</h5></label>
+  <p-calendar [inline]="true" [(ngModel)]="date_fin" formControlName="date_fin" [showTime]="true" inputId="time" dateFormat="yy-mm-dd"></p-calendar>
+
+
+</div>
+
+<div class="p-field p-col-12 p-md-6 mb-4">
+  <label for="eventtype_id" ><h5>eventtype_id</h5></label>
+
+<p-dropdown  formControlName="eventtype_id" optionLabel="name" [(ngModel)]="SelectedEventType" placeholder="Event Type"  [options]="EventTypes" optionValue="id" scrollHeigh="30px"[filter]="true" filterBy="nom"
+[showClear]="true" ></p-dropdown>
+
+</div>
+
+  </div>
+</form>
+
+</ng-template>
+<p-footer>
+  <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+  <button *ngIf="save" pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="HandleForm()"></button>
+  <button *ngIf="update && permissions.includes('update events')" pButton pRipple label="Update" icon="pi pi-check" class="p-button-text" (click)="updateEvent()"></button>
+  <button *ngIf="update && permissions.includes('delete events')" pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger" (click)="DeleteEvent()"></button>
+
+</p-footer>
+
+
+<!-- </div> -->
+</p-dialog>
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+
+<p-toast [style]="{marginTop: '80px'}"></p-toast>

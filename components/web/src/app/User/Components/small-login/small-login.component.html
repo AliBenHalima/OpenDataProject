@@ -1,0 +1,25 @@
+
+<p-dialog [contentStyle]="{'overflow':'visible'}" [(visible)]="displayLogin" [style]="{width: '650px',height: '250px'}" header="Login" [modal]="true" styleClass="p-fluid" (onHide)="hideDialog()">
+  <!-- <div  [style]="{'width':'100%'}" > -->
+
+  <ng-template pTemplate="content" [style]="{'width':'100%'}">
+    <form  [formGroup]="form"  >
+    <div class="p-fluid p-formgrid p-grid">
+      <div class="p-field p-col-12 p-md-6">
+          <label for="email" ><h5>Email</h5></label>
+          <input formControlName="email" id="email" type="email" pInputText>
+      </div>
+      <div class="p-field p-col-12 p-md-6">
+        <label for="password" ><h5>Password</h5></label>
+        <input formControlName="password" id="password" type="password" pInputText>
+    </div>
+
+
+  </div>
+</form>
+
+<p-footer>
+  <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+  <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="HandleForm()"></button>
+
+</p-footer>

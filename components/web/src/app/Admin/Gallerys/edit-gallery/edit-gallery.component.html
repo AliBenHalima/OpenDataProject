@@ -1,0 +1,234 @@
+
+<app-header></app-header>
+<div class="container-fluid sb2">
+  <div class="row">
+    <app-sidebar></app-sidebar>
+<div class="sb2-2">
+
+  <div class="sb2-2-2">
+      <ul>
+          <li ><a href="#"> Edit Gallery</a>
+          </li>
+      </ul>
+  </div>
+
+  <div class="sb2-2-3">
+    <div class="row">
+     <!-- HERE ////////////////// -->
+
+
+
+
+     <div class="maindiv ">
+
+       <div class="container">
+        <!-- <button  (click)="openNew()" pButton pRipple label="New"  icon="pi pi-plus" class="p-button-success p-mr-2"  ></button> -->
+
+
+         <div class="row">
+          <div class="col-md-12">
+            <div class="box-inn-sp">
+                <div class="inn-title">
+                    <h4>Edit Gallery</h4>
+                </div>
+                <div class="tab-inn">
+                  <form (submit)="Editform()" [formGroup]="form" >
+                    <!-- <p-toast></p-toast> -->
+                      <div class="row">
+                          <div class="input-field col s12 ">
+                            <!-- <label for="first_name">Nom</label> -->
+                              <input  formControlName="sujet" placeholder="sujet" name="sujet" id="sujet" type="text"  class="validate" >
+                              <!-- <div *ngIf="form.get('sujet').touched && !form.get('sujet').valid">
+                                <div *ngIf="form.get('sujet').errors.required"></div>
+                                sujet required
+
+                            </div> -->
+                          </div>
+                        </div>
+                          <div class="row">
+                          <div class="input-field col s12">
+                              <input  formControlName="description" placeholder="description"   name="description" id="description" type="text"  class="validate"  >
+                              <!-- <div *ngIf="form.get('description').touched && !form.get('description').valid">
+                                <div *ngIf="form.get('description').errors.required"></div>
+                                description required
+
+                            </div>-->
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="row">
+                          <div class="input-field col s12  ">
+                            <p-calendar [inline]="true"  placeholder="date" [(ngModel)]="date" formControlName="date" [showTime]="true" inputId="time" dateFormat="yy-mm-dd"></p-calendar>
+                             <!-- <div *ngIf="form.get('date').touched && !form.get('date').valid">
+                                <div *ngIf="form.get('date').errors.required"></div>
+                                Date required
+
+                            </div>-->
+                            </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="input-field col s12  ">
+                            <button  type="submit" class="btn btn-success m-auto">Save</button>
+                          </div>
+                        </div>
+
+
+                        <div class="row d-flex justify-content-center">
+                        <p-fileUpload formControlName="contenu" chooseLabel="Browse" (uploadHandler)="onUpload($event)" customUpload="true"    multiple="true"    (onSelect)="onSelect($event)"   (onRemove)="onRemoveImage($event)"
+                        accept="image/*" maxFileSize="1000000">
+
+                        <ng-template pTemplate="content">
+                          <ul *ngIf="uploadedFiles.length">
+                              <li *ngFor="let file of uploadedFiles"></li>
+                          </ul>
+                      </ng-template>
+
+                              </p-fileUpload>
+                            </div>
+
+                        <div class="row">
+                          <div class="col-md-6 col-lg-3 item " *ngFor="let image of images ">
+                            <div class="ibox">
+                                <div class="ibox-content product-box">
+                                    <div class="product-imitation">
+                                      <img  class="rounded " [src]='environment+"/storage/Gallery/Images/"+image.contenu' alt="no image"  />
+
+                                    </div>
+                                    <div class="d-flex justify-content-center">
+                                      <button (click)="Delete(image)" type="button" class="btn btn-danger m-auto">Delete</button>
+
+                                    </div>
+
+                                   </div>
+
+                                </div>
+                            </div>
+                          </div>
+
+
+
+
+                      </form>
+
+                    </div>
+                    </div>
+
+
+
+
+
+
+
+
+
+                  </div>
+
+
+
+
+         </div>
+
+
+
+
+         </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     <div>
+     </div>
+
+     <p-dialog [contentStyle]="{'overflow':'scroll'}" [(visible)]="displayModal" [style]="{width: '650px',height: '550px'}" header="Gellery" [modal]="true" styleClass="p-fluid" (onHide)="hideDialog()">
+       <!-- <div  [style]="{'width':'100%'}" > -->
+
+       <ng-template pTemplate="content" [style]="{'width':'100%'}">
+
+         <form  [formGroup]="form">
+         <div class="p-fluid p-formgrid p-grid">
+           <div class="p-field p-col-12 p-md-6">
+               <label for="sujet" ><h5>sujet</h5></label>
+               <input formControlName="sujet" id="sujet" type="text" pInputText>
+           </div>
+
+           <div class="p-field p-col-12 p-md-6">
+             <label for="description" ><h5>description</h5></label>
+             <input formControlName="description" id="description" type="text" pInputText>
+         </div>
+
+         <div class="p-field p-col-12 p-md-6">
+           <label for="date" ><h5>date</h5></label>
+           <p-calendar  [(ngModel)]="date" formControlName="date" [showTime]="true" inputId="time" dateFormat="yy-mm-dd"></p-calendar>
+
+       </div>
+
+         <div class="p-field p-col-12 p-md-6">
+           <label for="" ><h5>contenu</h5></label>
+           <p-fileUpload formControlName="contenu"   (onRemove)="onRemoveImage($event)" multiple="multiple"    chooseLabel="Browse"   (onSelect)="onSelect($event)"
+           accept="image/*" maxFileSize="1000000">
+
+                 <ng-template pTemplate="content">
+                     <ul *ngIf="uploadedFiles.length>0">
+                                 <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
+                             </ul>
+                         </ng-template>
+                 </p-fileUpload>
+       </div>
+
+
+
+       </div>
+     </form>
+
+     </ng-template>
+     <p-footer>
+       <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+       <button *ngIf="save" pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="HandleForm()"></button>
+       <!-- <button *ngIf="update" pButton pRipple label="Update" icon="pi pi-check" class="p-button-text" (click)="updateDocument()"></button> -->
+
+     </p-footer>
+
+
+     <!-- </div> -->
+     </p-dialog>
+
+
+
+     <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+
+     <p-toast [style]="{marginTop: '80px'}"></p-toast>
+
+
+
+
+
+
+
+
+
+    </div>
+
+
+
+  </div>
+</div>
+
+</div>
+</div>

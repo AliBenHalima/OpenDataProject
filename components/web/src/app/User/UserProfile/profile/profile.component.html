@@ -1,0 +1,141 @@
+
+<app-header-user></app-header-user>
+<app-user-under-header [Component]="'About us'" [ComponentDescription]="'Get to know us more'"></app-user-under-header>
+
+
+
+<section class="tourb2-ab-p-2 com-colo-abou">
+  <div class="container">
+    <div class="col-md-9">
+    <div class="row tourb2-ab-p1">
+      <div class="col-md-12 col-sm-12">
+        <div class="card-body">
+                    <div class="e-profile">
+                      <div class="row">
+                        <div class="col-12 col-sm-auto mb-3">
+                          <div class="mx-auto" style="width: 140px;">
+                            <div class="d-flex justify-content-center align-items-center rounded" style="height: 140px; background-color: rgb(233, 236, 239);">
+                              <img  [src]='environment+"/storage/images/Users/"+CurrentUser.photo' alt=""  style="height: 100%; width: 100%;"/>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col d-flex flex-column flex-sm-row justify-content-between mb-3">
+                          <div class="text-center text-sm-left mb-2 mb-sm-0">
+                           <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap"> {{CurrentUser.name}}</h4>
+
+                            <div class="text-muted"><small>Role : {{CurrentUser.role_name}}</small></div>
+                            <div class="mt-2">
+                              <p-fileUpload #fubauto name="demo[]"  accept="image/*" (onSelect)="onSelect($event)" maxFileSize="1000000"  url="./upload.php" (uploadHandler)="onUpload($event)" customUpload="true"   [auto]="true" chooseLabel="Change Photo"></p-fileUpload>
+
+                            </div>
+                          </div>
+                          <div class="text-center text-sm-right">
+                            <!-- <span class="badge badge-secondary">administrator</span> -->
+                            <div class="text-muted"><small>Joined {{CurrentUser.created_at | date }}</small></div>
+                          </div>
+                        </div>
+                      </div>
+                      <ul class="nav nav-tabs">
+                        <li class="nav-item"><a href="" class="active nav-link">Settings</a></li>
+                      </ul>
+                      <div class="tab-content pt-3">
+                        <div class="tab-pane active">
+                          <form class="form" (submit)="HandleForm()" [formGroup]="form" >
+                            <div class="row">
+                              <div class="col">
+                                <div class="row">
+                                  <div class="col">
+                                    <div class="form-group">
+                                      <label> <span class="d-none d-xl-inline">Name</span></label>
+                                      <input formControlName="name" class="form-control" type="text" name="name" placeholder="Name" >
+                                    </div>
+                                  </div>
+                                  <div class="col">
+                                    <div class="form-group">
+                                      <label> <span class="d-none d-xl-inline">Address</span></label>
+
+                                      <input  formControlName="address" class="form-control" type="text" name="Address" placeholder="Address" >
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col">
+                                    <div class="form-group">
+                                      <label> <span class="d-none d-xl-inline">Email</span></label>
+
+                                      <input formControlName="email"  class="form-control" type="text" placeholder="user@example.com">
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col ">
+                                    <div class="form-group">
+                                      <label> <span class="d-none d-xl-inline">About</span></label>
+                                      <textarea  formControlName="Bio" class="form-control" rows="5" placeholder="My Bio"></textarea>
+                                    </div>
+                                  </div>
+                                </div>
+
+
+
+
+
+
+
+
+                              </div>
+                            </div>
+                            <div class="row" >
+                              <div class="col-12 col-sm-6 mb-3">
+                                <div class="mb-2"><b>Change Password</b></div>
+                                <div class="row" *ngIf="Localrole_id!=6">
+                                  <div class="col">
+                                    <div class="form-group">
+                                      <label> <span class="d-none d-xl-inline">Current Password</span></label>
+
+                                      <input  formControlName="CurrentPassword" class="form-control" type="password" placeholder="••••••">
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col">
+                                    <div class="form-group">
+                                      <label> <span class="d-none d-xl-inline">New Password</span></label>
+                                      <input formControlName="NewPassword" class="form-control" type="password" placeholder="••••••">
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col">
+                                    <div class="form-group">
+                                      <label> <span class="d-none d-xl-inline"> Confirm Password</span></label>
+                                      <input  formControlName="ConfirmPassword" class="form-control" type="password" placeholder="••••••"></div>
+                                  </div>
+                                </div>
+                              </div>
+
+                            </div>
+                            <div class="row">
+                              <div class="col d-flex justify-content-end">
+                                <button class="btn btn-primary" type="submit">Save Changes</button>
+                              </div>
+                            </div>
+                          </form>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+      </div>
+
+  </div>
+</div>
+<app-user-sidebar></app-user-sidebar>
+
+  </div>
+</section>
+
+<app-footer-user></app-footer-user>
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+
+<p-toast [style]="{marginTop: '80px'}"></p-toast>

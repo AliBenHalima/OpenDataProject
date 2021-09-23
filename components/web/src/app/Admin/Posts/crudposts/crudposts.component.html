@@ -1,0 +1,137 @@
+
+<div class="card ">
+  <div class="d-flex flex-row">
+    <p-dropdown *ngIf="Localrole"  [style]="{'justify-content' : 'flex-end !important' }" resetFilterOnHide="true" showClear="true" [(ngModel)]="SelectedSearchEtab" (onChange)="OnChangeEtab($event)" optionLabel="nom"  placeholder="Etablissements"  [options]="etablissements" optionValue="id" scrollHeigh="30px" [filter]="true" filterBy="nom"
+    [showClear]="true"></p-dropdown>
+  </div>
+    <p-toast [style]="{marginTop: '80px'}"></p-toast>
+    <h5>Single Column</h5>
+
+      <p-toolbar styleClass="p-mb-4">
+          <ng-template pTemplate="left">
+              <button [disabled]="!permissions.includes('create posts')" [routerLink]="['/admin/addpost']" (click)="openNew()" pButton pRipple label="New"  icon="pi pi-plus" class="p-button-success p-mr-2"  ></button>
+              <!-- <button pButton pRipple [label]="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length"></button> -->
+          </ng-template>
+
+          <ng-template pTemplate="right">
+            <div class="p-d-flex">
+              <span  class="p-input-icon-right p-ml-auto">
+                        <i  [style]="{'top':'30%'}" class="pi pi-search "></i>
+                        <input pInputText type="text" (input)="dt2.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
+                    </span>
+            </div>
+          </ng-template>
+
+
+  <!--
+          <ng-template pTemplate="right">
+              <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import" class="p-mr-2 p-d-inline-block"></p-fileUpload>
+              <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help"></button>
+          </ng-template> -->
+      </p-toolbar>
+      <p-table #dt2 [value]="posts"  [scrollable]="true" [rows]="100" scrollHeight="600px" [globalFilterFields]="['name','etablissement_id','sujet']"
+      [virtualScroll]="true" [virtualRowHeight]="60" selectionMode="single">
+    <!-- <p-table > -->
+        <ng-template   pTemplate="header">
+            <tr>
+                <th pSortableColumn="name">Nom <p-sortIcon field="name"></p-sortIcon></th>
+                <th pSortableColumn="sujet">Sujet <p-sortIcon field="sujet"></p-sortIcon></th>
+                <th pSortableColumn="etablissement_id">Etablissement <p-sortIcon field="etablissement_id"></p-sortIcon></th>
+
+
+               <th *ngIf="permissions.includes('view posts')"  [style]="{'width':'60px'}">View </th>
+               <th *ngIf="permissions.includes('update posts')"  [style]="{'width':'60px'}">Edit </th>
+               <th *ngIf="permissions.includes('delete posts')" [style]="{'width':'60px'}" >Delete </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-post>
+            <tr>
+                <td>{{post.name}}</td>
+                <td>{{post.sujet}}</td>
+                <td>{{post.etablissements.nom}}</td>
+                <!-- <p-dropdown optionLabel="name" placeholder="All users"  [options]="FilterUsersByEtab(etab.id)" scrollHeigh="30px" ></p-dropdown> -->
+
+
+                <td *ngIf="permissions.includes('view posts')"  [style]="{'width':'60px'}"> <a [routerLink]="['/admin/viewpost/',post.id]" ><i class="fa fa-eye " aria-hidden="true"></i></a></td>
+                <td *ngIf="permissions.includes('update posts')" [style]="{'width':'60px'}">   <a [routerLink]="['/admin/editpost/',post.id]" ><i class="fa fa-pencil-square-o" aria-hidden="true" ></i></a> </td>
+                  <td *ngIf="permissions.includes('delete posts')" [style]="{'width':'60px'}">   <a (click)="DeletePost(post.id)" ><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>
+              </tr>
+              <!-- <app-crud-row [etab]="etab"></app-crud-row> -->
+        </ng-template>
+    </p-table>
+  </div>
+
+
+
+  <p-dialog [contentStyle]="{'overflow':'scroll'}" [(visible)]="displayModal" [style]="{width: '650px',height: '450px'}" header="Product Details" [modal]="true" styleClass="p-fluid" (onHide)="hideDialog()">
+    <!-- <div  [style]="{'width':'100%'}" > -->
+
+    <ng-template pTemplate="content" [style]="{'width':'100%'}">
+
+      <form  [formGroup]="form">
+      <div class="p-fluid p-formgrid p-grid">
+        <div class="p-field p-col-12 p-md-6">
+            <label for="name" ><h5>name</h5></label>
+            <input formControlName="name" id="name" type="text" pInputText>
+        </div>
+
+        <div class="p-field p-col-12 p-md-6">
+          <label for="sujet" ><h5>sujet</h5></label>
+          <input formControlName="sujet" id="sujet" type="text" pInputText>
+      </div>
+
+      <div class="p-field p-col-12 p-md-6">
+        <label for="firstname" ><h5>description</h5></label>
+        <!-- <input formControlName="description" id="description" type="text" pInputText> -->
+        <p-editor formControlName="description" [(ngModel)]="text" [style]="{'height':'320px'}"></p-editor>
+
+      </div>
+
+      <div class="p-field p-col-12 p-md-6">
+        <label for="piece" ><h5>piece</h5></label>
+        <p-fileUpload multiple="multiple" formControlName="piece"   chooseLabel="Browse" name="demo[]"  (onSelect)="onSelect($event)"
+             accept=".pdf" maxFileSize="1000000">
+              <ng-template pTemplate="content">
+                  <ul *ngIf="uploadedFiles.length">
+                              <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
+                          </ul>
+                      </ng-template>
+              </p-fileUpload>
+    </div>
+
+   <!--
+    <div class="p-field p-col-12 p-md-6">
+      <label for="Sujet" ><h5>Sujet</h5></label>
+    <p-dropdown  formControlName="sujet_document_id" optionLabel="nom" [(ngModel)]="SelectedSujet" placeholder="Sujets"  [options]="FetchSujets" optionValue="id" scrollHeigh="30px" [filter]="true" filterBy="nom"
+    [showClear]="true"></p-dropdown>
+
+  </div>
+-->
+
+
+   <!--
+        <div class="p-field p-col-12 p-md-3">
+        <p-multiSelect *ngIf="permissions.length>0 && currentPermissions.length==0 " formControlName="permission"  defaultLabel="Select permissions"  (onChange)="ChangePermissions($event, dd)" #dd [options]="permissions" [(ngModel)]="SelectedPermissions" optionLabel="name" optionValue="id"></p-multiSelect>
+      </div>
+    -->
+
+    </div>
+  </form>
+
+  </ng-template>
+  <p-footer>
+    <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+    <button *ngIf="save" pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="HandleForm()"></button>
+    <button *ngIf="update" pButton pRipple label="Update" icon="pi pi-check" class="p-button-text" (click)="updateDocument()"></button>
+
+  </p-footer>
+
+
+
+  </p-dialog>
+
+
+  <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+
+  <p-toast [style]="{marginTop: '80px'}"></p-toast>
+

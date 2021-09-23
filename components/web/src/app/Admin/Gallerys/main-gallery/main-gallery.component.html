@@ -1,0 +1,270 @@
+<p-toast [style]="{marginTop: '80px'}"></p-toast>
+<div class="card ">
+  <div class="d-flex flex-row">
+
+  <p-dropdown *ngIf="Localrole_id==6"  [style]="{'justify-content' : 'flex-end !important' }" resetFilterOnHide="true" showClear="true" [(ngModel)]="SelectedSearchEtab" (onChange)="OnChangeEtab($event)" optionLabel="nom"  placeholder="Etablissements"  [options]="etablissements" optionValue="id" scrollHeigh="30px" [filter]="true" filterBy="nom"
+  [showClear]="true"></p-dropdown>
+</div>
+
+<div class="maindiv ">
+  <button [disabled]="!permissions.includes('create galleries')"  (click)="openNew()" pButton pRipple label="New"  icon="pi pi-plus" class="p-button-success p-mr-2"  ></button>
+
+  <div class="container">
+
+    <div class="row d-flex justify-content-between">
+        <div class="col-md-6 col-lg-3 item " *ngFor="let galery of Galleries">
+            <div class="ibox">
+                <div class="ibox-content product-box">
+                    <div class="product-imitation">
+                      <img (click)="DisplayImages(galery)" class="rounded " [src]='environment+"/storage/Gallery/Images/"+galery.images[0].contenu' alt="no image"  />
+                    </div>
+                    <div class="product-desc">
+                        <span class="product-price" *ngIf="galery.images.length>1">
+                            {{galery.images.length}} images
+                        </span>
+                        <span class="product-price" *ngIf="galery.images.length==1">
+                          {{galery.images.length}} image
+                      </span>
+
+                        <div class="d-flex">
+                          <a href="#" class="product-name ">   {{galery.sujet}}</a>
+                      </div>
+                        <small class="text-muted"> Time :{{galery.date  | date:'medium' }}</small>
+                        <div class="small m-t-xs">
+                            {{galery.description}}
+                        </div>
+                        <div class="d-flex justify-content-between ">
+                          <!-- <a  [routerLink]="['/editetab/']" ><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                          <a  [routerLink]="['/editetab/' ]" ><i class="fa fa-pencil-square-o ml-6" aria-hidden="true"></i></a> -->
+                          <button *ngIf="permissions.includes('update galleries')" [routerLink]="['../EditGallery/',galery.id]" type="button" class="btn btn-success">Edit</button>
+                          <button *ngIf="permissions.includes('delete galleries')" (click)="DeleteGallery(galery)" type="button" class="btn btn-danger mr-5">Delete</button>
+
+                        </div>
+                        <!-- <div class="m-t text-righ">
+
+                            <a href="#" class="btn btn-xs btn-outline btn-primary">Info <i class="fa fa-long-arrow-right"></i> </a>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+
+      </div>
+      <div class="col-md-12 item text-center" *ngIf="Galleries.length==0" >
+
+
+         <p> No Galleries yet </p>
+
+    </div>
+        <!-- <div class="col-md-6 col-lg-4">
+          <div class="ibox">
+              <div class="ibox-content product-box">
+                  <div class="product-imitation">
+                      [ INFO ]
+                  </div>
+                  <div class="product-desc">
+                      <span class="product-price">
+                          $10
+                      </span>
+                      <small class="text-muted">Category</small>
+                      <a href="#" class="product-name"> Product</a>
+
+                      <div class="small m-t-xs">
+                          Many desktop publishing packages and web page editors now.
+                      </div>
+                      <div class="m-t text-righ">
+
+                          <a href="#" class="btn btn-xs btn-outline btn-primary">Info <i class="fa fa-long-arrow-right"></i> </a>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+        <div class="col-md-6 col-lg-4">
+            <div class="ibox">
+                <div class="ibox-content product-box">
+
+                    <div class="product-imitation">
+                        [ INFO ]
+                    </div>
+                    <div class="product-desc">
+                        <span class="product-price">
+                            $10
+                        </span>
+                        <small class="text-muted">Category</small>
+                        <a href="#" class="product-name"> Product</a>
+
+
+
+                        <div class="small m-t-xs">
+                            Many desktop publishing packages and web page editors now.
+                        </div>
+                        <div class="m-t text-righ">
+
+                            <a href="#" class="btn btn-xs btn-outline btn-primary">Info <i class="fa fa-long-arrow-right"></i> </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+            <div class="ibox">
+                <div class="ibox-content product-box active">
+
+                    <div class="product-imitation">
+                        [ INFO ]
+                    </div>
+                    <div class="product-desc">
+                        <span class="product-price">
+                            $10
+                        </span>
+                        <small class="text-muted">Category</small>
+                        <a href="#" class="product-name"> Product</a>
+
+
+
+                        <div class="small m-t-xs">
+                            Many desktop publishing packages and web page editors now.
+                        </div>
+                        <div class="m-t text-righ">
+
+                            <a href="#" class="btn btn-xs btn-outline btn-primary">Info <i class="fa fa-long-arrow-right"></i> </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+            <div class="ibox">
+                <div class="ibox-content product-box">
+
+                    <div class="product-imitation">
+                        [ INFO ]
+                    </div>
+                    <div class="product-desc">
+                        <span class="product-price">
+                            $10
+                        </span>
+                        <small class="text-muted">Category</small>
+                        <a href="#" class="product-name"> Product</a>
+                        <div class="small m-t-xs">
+                            Many desktop publishing packages and web page editors now.
+                        </div>
+                        <div class="m-t text-righ">
+                            <a href="#" class="btn btn-xs btn-outline btn-primary">Info <i class="fa fa-long-arrow-right"></i> </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+    </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+<div>
+</div>
+
+<p-dialog [contentStyle]="{'overflow':'scroll'}" [(visible)]="displayModal" [style]="{width: '650px',height: '550px'}" header="Gellery" [modal]="true" styleClass="p-fluid" (onHide)="hideDialog()">
+  <!-- <div  [style]="{'width':'100%'}" > -->
+
+  <ng-template pTemplate="content" [style]="{'width':'100%'}">
+
+    <form  [formGroup]="form">
+    <div class="p-fluid p-formgrid p-grid">
+      <div class="p-field p-col-12 p-md-6">
+          <label for="sujet" ><h5>sujet</h5></label>
+          <input formControlName="sujet" id="sujet" type="text" pInputText>
+      </div>
+
+      <div class="p-field p-col-12 p-md-6">
+        <label for="description" ><h5>description</h5></label>
+        <input formControlName="description" id="description" type="text" pInputText>
+    </div>
+
+    <div class="p-field p-col-12 p-md-6">
+      <label for="date" ><h5>date</h5></label>
+      <p-calendar [inline]="true"  [(ngModel)]="date" formControlName="date" [showTime]="true" inputId="time" dateFormat="yy-mm-dd"></p-calendar>
+
+  </div>
+
+    <div class="p-field p-col-12 p-md-6">
+      <label for="" ><h5>contenu</h5></label>
+      <p-fileUpload formControlName="contenu"  url="./upload.php"  (onRemove)="onRemoveImage($event)" multiple="multiple"    chooseLabel="Browse"   (onSelect)="onSelect($event)"
+      accept="image/*" maxFileSize="1000000">
+
+            <ng-template pTemplate="content">
+                <ul *ngIf="uploadedFiles.length>0">
+
+                        </ul>
+                    </ng-template>
+            </p-fileUpload>
+  </div>
+
+  <!-- <div class="p-field p-col-12 p-md-6">
+    <label for="Sujet" ><h5>Sujet</h5></label>
+  <p-dropdown  formControlName="sujet_document_id" optionLabel="nom" [(ngModel)]="SelectedSujet" placeholder="Sujets"  [options]="FetchSujets" optionValue="id" scrollHeigh="30px" [filter]="true" filterBy="nom"
+	[showClear]="true"></p-dropdown>
+
+</div> -->
+
+<!-- <div class="p-field p-col-12 p-md-6 mb-4">
+  <label for="Etablissement" ><h5>Etablissement</h5></label>
+<p-dropdown  formControlName="etablissement_id" optionLabel="nom" [(ngModel)]="SelectedEtablissement" placeholder="Etablissements"  [options]="etablissements" optionValue="id" scrollHeigh="30px"[filter]="true" filterBy="nom"
+[showClear]="true" ></p-dropdown>
+
+</div> -->
+
+
+
+      <!-- <div class="p-field p-col-12 p-md-3">
+          <label for="state"><h5>State</h5></label>
+          <p-dropdown inputId="state" [options]="states"  placeholder="Select" optionLabel="name"></p-dropdown>
+      </div> -->
+
+
+
+
+  </div>
+</form>
+
+</ng-template>
+<p-footer>
+  <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+  <button *ngIf="save" pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="HandleForm()"></button>
+  <!-- <button *ngIf="update" pButton pRipple label="Update" icon="pi pi-check" class="p-button-text" (click)="updateDocument()"></button> -->
+
+</p-footer>
+
+
+<!-- </div> -->
+</p-dialog>
+
+<p-galleria  [value]="images" [(visible)]="displayBasic2"  [containerStyle]="{'max-width': '850px'}"
+    [circular]="true" [fullScreen]="true" [showItemNavigators]="true" [showThumbnails]="false" [baseZIndex]="100000">
+    <ng-template pTemplate="item" let-item>
+
+      <img [src]='environment+"/storage/Gallery/Images/"+item.contenu' style="width: 100%; display: block;" />
+    </ng-template>
+    <!-- <ng-template pTemplate="thumbnail" let-item>
+        <div class="p-grid p-nogutter p-justify-center">
+
+            <img [src]='"http://127.0.0.1:8000/storage/Gallery/Images/"+item.contenu' style="display: block;"/>
+        </div>
+    </ng-template> -->
+</p-galleria>
+<!-- <button pButton type="button" icon="pi pi-external-link" label="Show" ></button> -->
+
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+
+<p-toast [style]="{marginTop: '80px'}"></p-toast>

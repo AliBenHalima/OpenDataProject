@@ -1,0 +1,130 @@
+<body>
+  <app-header></app-header>
+  <div class="container-fluid sb2">
+    <div class="row">
+      <app-sidebar></app-sidebar>
+<div class="sb2-2">
+  <div class="sb2-2-2">
+      <ul>
+          <li><a href="#"><i class="fa fa-home" aria-hidden="true"></i> Home</a>
+          </li>
+          <li class="active-bre"><a href="#"> Ui Form</a>
+          </li>
+      </ul>
+  </div>
+  <div class="sb2-2-3">
+      <div class="row">
+          <div class="col-md-12">
+   <div class="box-inn-sp">
+       <div class="inn-title">
+           <h4>View Post</h4>
+       </div>
+
+
+
+        <!--===== PLACES ======-->
+<div class="rows p2_2">
+ <!-- <div class="col-md-6 col-sm-6 col-xs-12 p2_1">
+     <img class="imageEvent w-100 h-25" [src]='event[0].photo!="" ? "http://127.0.0.1:8000/storage/documents/Events/"+event[0].photo : "assets/TravelFront/images/eventimg.png"' alt="" />
+ </div> -->
+ <div class="col-md-12 col-sm-12 col-xs-12 p2">
+     <!-- <h3><span><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star-half-o" aria-hidden="true"></i></span></h3> -->
+     <div class="db-2-main-com db-2-main-com-table db-com-p">
+      <h6 class="d-inline">Published by : <h6 class="text-primary d-inline">{{post.users.roles[0].name}}</h6> | {{post.created_at | date:'medium'}}</h6>
+      <!-- <p>search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p> -->
+     <div class="element">
+      <h5 class="d-inline">Sujet : </h5>
+      <h6 class="d-inline">{{post.sujet}} </h6>
+     </div>
+
+     <div class="element">
+      <h5 >Description : </h5>
+      <div id="description"></div>
+
+    </div>
+
+      <h5>Attachements :</h5>
+      <div class="p-field p-col-12 p-md-6" *ngFor="let piece of post.piecejointes;let index=index;">
+        <p *ngIf="piece.contenu=='' ">No Attachments available</p>
+       <a *ngIf="piece.contenu !=null" [href]='"http://127.0.0.1:8000/storage/documents/Posts/"+piece.contenu' target="_blank">{{index +1}}. {{piece.name}}</a>
+    </div>
+
+
+    </div>
+
+    <button (click)="back()" pButton pRipple label="Back"   class="p-button-success p-mr-2"  ></button>
+
+
+          </div>
+
+      </div>
+      <!--===== PLACES END ======-->
+
+
+
+<div>
+
+</div>
+
+
+
+       <!-- <div class="tab-inn">
+
+           <div class="p-fluid p-formgrid p-grid">
+             <div class="p-field p-col-12 p-md-6 elements ">
+                 <label for="name" ><h5>name</h5></label>
+                 <div class="">
+                   <p>
+                     {{posts[0].name}}
+                   </p>
+                 </div>
+             </div>
+
+             <div class="p-field p-col-12 p-md-6 elements">
+               <label   for="sujet" ><h5>sujet</h5></label>
+               <div class="">
+                <p>
+                  {{posts[0].sujet}}
+                </p>
+              </div>
+           </div>
+
+           <div class="p-field p-col-12 p-md-6 elements">
+            <label   for="Etablissement" ><h5>Etablissement</h5></label>
+            <div class="">
+              <p>
+                {{posts[0].etablissements_nom}}
+              </p>
+            </div>
+        </div>
+
+           <div class="p-field p-col-12 p-md-6 ">
+             <label for="description" ><h5>description</h5></label>
+             <p id="description"></p>
+         </div>
+
+         <label for="description" ><h5>Attachments</h5></label>
+         <div class="p-field p-col-12 p-md-6" *ngFor="let post of posts;let index=index;">
+          <p *ngIf="post.contenu=='' ">No Attachments available</p>
+         <a *ngIf="post.contenu !=null" [href]='"http://127.0.0.1:8000/storage/documents/Posts/"+post.contenu' target="_blank">{{index +1}}. {{post.piecejointes_name}}</a>
+      </div>
+
+
+
+                   </div>
+                   <div class="row">
+                    <div class="input-field col s12">
+
+                      <button  pButton type="button" label="Cancel" class="ml-4" (click)="handleCancel()"></button>
+                    </div>
+                </div>
+
+                  </div> -->
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+</div>
+</div>
+</body>

@@ -1,0 +1,12 @@
+<div class="background" *ngIf="Etablissement" [style.background-image]="'url('+environment +'/storage/images/Etablissements/'+Etablissement.photo+')'">
+  <div class="container">
+      <div class="row">
+          <div class="tourz-search-1" >
+              <h1 [style.color]="Etablissement.color">{{Etablissement.nom}}</h1>
+              <p>{{Etablissement.short_description}}</p>
+
+
+          </div>
+      </div>
+  </div>
+</div>

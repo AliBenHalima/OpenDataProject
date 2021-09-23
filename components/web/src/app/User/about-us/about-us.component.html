@@ -1,0 +1,44 @@
+
+<app-header-user></app-header-user>
+<app-user-under-header [Component]="'About us section'" [ComponentDescription]="'Get to know us more'"></app-user-under-header>
+
+
+
+<section class="tourb2-ab-p-2 com-colo-abou">
+  <div class="container">
+    <!-- TITLE & DESCRIPTION -->
+    <app-user-title-description [Component]="Etablissement.nom" [ComponentDescription]="''" ></app-user-title-description>
+
+    <div class="row tourb2-ab-p1">
+      <div class="col-md-6 col-sm-6">
+        <div class="tourb2-ab-p1-left">
+          <h3 class="mb-4">{{Etablissement.nom}}</h3>
+          <!-- <span>Duis pretium gravida nisi, ut pulvinar lorem bibendum eget</span> -->
+
+          <!-- <p>{{Etablissement.description}}</p> -->
+          <div id="description"> </div>
+          <p> <span class="strong">Phone: </span> <span class="highlighted">{{Etablissement.phone_number}}</span> </p>
+            <p> <span class="strong">Phone: </span> <span class="highlighted">{{Etablissement.email}}</span> </p>
+
+
+           </div>
+      </div>
+      <div class="col-md-6 col-sm-6">
+        <div class="tourb2-ab-p1-right"> <img  [src]='environment+"/storage/images/Etablissements/"+Etablissement.photo' alt={{Etablissement.nom}} /> </div>
+      </div>
+    </div>
+
+    <div class="tour_head1 tout-map map-container">
+      <h3>Know us more...</h3>
+      <iframe [src]='VideoURL' frameborder="0" allowfullscreen></iframe>
+    </div>
+
+	<div class="tour_head1 tout-map map-container">
+						<h3>Location</h3>
+						<iframe [src]="MapUrl" allowfullscreen></iframe>
+	</div>
+  </div>
+
+</section>
+
+<app-footer-user></app-footer-user>

@@ -1,0 +1,44 @@
+<app-header-user></app-header-user>
+  <div class="tr-register">
+    <div class="tr-regi-form">
+      <h4>Sign In</h4>
+      <p>It's free and always will be.</p>
+      <p-toast [style]="{marginTop: '80px'}"></p-toast>
+      <form (submit)="HandleForm()" [formGroup]="form"   class="col s12">
+
+        <div class="row">
+          <div class="input-field col s12">
+            <input formControlName="email" ngModel name="email" type="email" id="email" class="form-control mb-4" placeholder="E-mail">            <label>Email</label>
+
+            <div class="text-left" *ngIf="form.get('email').touched && !form.get('email').valid">
+              <div *ngIf="form.get('email').errors.required"></div>
+              Email required
+
+          </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input formControlName="password"  ngModel name="password" type="password" id="email  " class="form-control mb-4" placeholder="Password">
+            <div class="text-left" *ngIf="form.get('password').touched && !form.get('password').valid">
+              <div *ngIf="form.get('password').errors.required"></div>
+              Password required
+
+          </div>
+
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input  [disabled]="!form.valid" type="submit" value="submit" class="waves-effect waves-light btn-large full-btn"> </div>
+        </div>
+      </form>
+
+
+      <p><a (click)="Forgot()" href="" [routerLink]="['/forgot']">forgot password</a>  </p>
+
+
+    </div>
+  </div>
+
+<app-footer-user></app-footer-user>

@@ -1,0 +1,60 @@
+
+<app-header-user></app-header-user>
+<app-user-under-header [Component]="'Post detail'" [ComponentDescription]="'Get all posts details'"></app-user-under-header>
+
+
+<!--====== TOUR DETAILS ==========-->
+<section>
+  <div class="rows inn-page-bg com-colo">
+    <div class="container inn-page-con-bg tb-space">
+     <div class="col-md-9">
+
+                        <!--===== PLACES ======-->
+               <div class="rows p2_2">
+
+                 <div class="col-md-12 col-sm-12 col-xs-12 p2">
+                     <!-- <h3><span><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star-half-o" aria-hidden="true"></i></span></h3> -->
+                     <div class="db-2-main-com db-2-main-com-table db-com-p">
+                      <h6 class="d-inline">Published by : <h6 class="text-primary d-inline">{{post?.users.roles[0].name}}</h6> | {{post?.created_at | date:'medium'}}</h6>
+                      <!-- <p>search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p> -->
+                     <div class="element">
+                      <h5 class="d-inline">Sujet : </h5>
+                      <h6 class="d-inline">{{post?.sujet}} </h6>
+                     </div>
+
+                     <div class="element">
+                      <h5 >Description : </h5>
+                      <div id="description"></div>
+
+                    </div>
+
+                      <h5>Attachements :</h5>
+                      <div class="p-field p-col-12 p-md-6" *ngFor="let piece of post.piecejointes;let index=index;">
+                        <p *ngIf="piece.contenu=='' ">No Attachments available</p>
+                        <a *ngIf="piece.contenu !=null" [href]='environment+"/storage/documents/Posts/"+piece.contenu' target="_blank">{{index +1}}. {{piece.name}}</a>
+                      </div>
+
+
+                    </div>
+
+                    <button  [style.background-color]="Etablissement.color"  (click)="back()" pButton pRipple label="Back"   class="p-button-success p-mr-2"  ></button>
+
+
+                          </div>
+
+                      </div>
+
+        <div>
+
+        </div>
+      </div>
+      <app-user-sidebar></app-user-sidebar>
+  </div>
+</div>
+</section>
+<!--====== TIPS BEFORE TRAVEL ==========-->
+
+
+<app-footer-user></app-footer-user>
+<p-toast [style]="{ marginTop: '80px' }"></p-toast>
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>

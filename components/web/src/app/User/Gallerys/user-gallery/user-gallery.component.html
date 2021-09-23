@@ -1,0 +1,89 @@
+<app-header-user (EtablissementObject)="PassEtablissement($event)"></app-header-user>
+<app-user-under-header [Component]="'Gallery section'" [ComponentDescription]="'Get all galleries'"></app-user-under-header>
+
+
+<section>
+  <div class="rows inn-page-bg com-colo">
+    <div class="container inn-page-con-bg tb-space pad-bot-redu" id="inner-page-title">
+      <!-- TITLE & DESCRIPTION -->
+      <app-user-title-description [Component]="'Gallerie'" [ComponentDescription]="'Get all galleries'" ></app-user-title-description>
+
+      <div class="spe-title col-md-9">
+        <div *ngIf="Galleries.length==0">
+          <p>No Galleries available</p>
+        </div>
+
+        <div (click)="openNew(Gallery)" class="col-md-4 col-sm-6 col-xs-12 b_packages " *ngFor="let Gallery of Galleries">
+
+          <div class="v_place_img"><img [src]='"http://127.0.0.1:8000/storage/Gallery/Images/"+Gallery.images[0].contenu' height="300px" alt="galery.images[0].name" title="Tour Booking" /> </div>
+          <div class="b_pack rows">
+            <div class="col-md-12 col-sm-12">
+              <h4><a >{{Gallery.sujet}}<span class="v_pl_name"></span></a></h4>
+              <h4><a >Posted at :<span class="v_pl_name"> {{Gallery.date | date}}</span></a></h4>
+              <h4><a >Description :<span class="v_pl_name"> {{Gallery.description}}</span></a></h4> </div>
+
+          </div>
+        </div>
+
+
+
+      </div>
+      <app-user-sidebar></app-user-sidebar>
+    </div>
+  </div>
+</section>
+
+<p-dialog [contentStyle]="{'overflow-y': 'auto', 'overflow-x': 'hidden','background-color': '#FFFF'}" [(visible)]="display" [style]="{width: '950px',height: '650px'}" header="Gallery" [modal]="true" styleClass="p-fluid" (onHide)="hideDialog()">
+
+  <ng-template  pTemplate="content" [style]="{'width':'100%'}">
+
+    <div class="tour_head1 hotel-book-room">
+      <h3>Photo Gallery</h3>
+      <div id="myCarousel1" class="carousel slide" data-ride="carousel">
+        <!-- Indicators -->
+        <ol class="carousel-indicators carousel-indicators-1" *ngFor="let image of SelectedGallery">
+          <li data-target="#myCarousel1" data-slide-to="0"><img src="images/gallery/t1.jpg" alt="Chania">
+          </li>
+          <li data-target="#myCarousel1" data-slide-to="1"><img src="images/gallery/t2.jpg" alt="Chania">
+          </li>
+          <li data-target="#myCarousel1" data-slide-to="2"><img src="images/gallery/t3.jpg" alt="Chania">
+          </li>
+          <li data-target="#myCarousel1" data-slide-to="3"><img src="images/gallery/t4.jpg" alt="Chania">
+          </li>
+          <li data-target="#myCarousel1" data-slide-to="4"><img src="images/gallery/t5.jpg" alt="Chania">
+          </li>
+          <li data-target="#myCarousel1" data-slide-to="5"><img src="images/gallery/s6.jpg" alt="Chania">
+          </li>
+          <li data-target="#myCarousel1" data-slide-to="6"><img src="images/gallery/s7.jpg" alt="Chania">
+          </li>
+          <li data-target="#myCarousel1" data-slide-to="7"><img src="images/gallery/s8.jpg" alt="Chania">
+          </li>
+          <li data-target="#myCarousel1" data-slide-to="8"><img src="images/gallery/s9.jpg" alt="Chania">
+          </li>
+        </ol>
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner carousel-inner1" role="listbox">
+         <div class="item active">
+          <img class="carouselImg" [src]='environment+"/storage/Gallery/Images/"+SelectedGallery.images[0].contenu' alt="Chania" width="460" height="345">
+        </div>-
+          <div class="item" *ngFor="let image of SelectedGallery.images">
+            <img class="carouselImg" [src]='environment+"/storage/Gallery/Images/"+image.contenu' alt="Chania" width="460" height="345">
+
+          </div>
+
+        </div>
+        <!-- Left and right controls -->
+        <a class="left carousel-control" href="#myCarousel1" role="button" data-slide="prev"> <span><i class="fa fa-angle-left hotel-gal-arr" aria-hidden="true"></i></span> </a>
+        <a class="right carousel-control" href="#myCarousel1" role="button" data-slide="next"> <span><i class="fa fa-angle-right hotel-gal-arr hotel-gal-arr1" aria-hidden="true"></i></span> </a>
+      </div>
+    </div>
+
+
+
+</ng-template>
+<p-footer>
+</p-footer>
+
+</p-dialog>
+
+<app-footer-user></app-footer-user>

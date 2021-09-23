@@ -1,0 +1,29 @@
+.container{
+  width: 100% !important;
+  height: 600px !important;
+  overflow: scroll;
+  }
+  input:after {
+    content:" *";
+    color: red;
+  }
+  .card{
+    width: 100% !important;
+  }
+  .maindiv{
+    width: 100% !important;
+  }
+  .form-control{
+    width: 100% !important;
+  }
+  .question{
+    width: 100% !important;
+  }
+  .form-row{
+
+    display: block !important;
+  }
+
+ label{
+  font-size:1.3rem;
+ }
