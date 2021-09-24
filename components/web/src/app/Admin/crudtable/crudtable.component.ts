@@ -81,20 +81,20 @@ export class CrudtableComponent implements OnInit {
       this.permissions=result.permissionNames.map(e=>e.name);
     });
 
-    this.res = this.gouverneratService
-      .Get_Gouvernerats()
-      .subscribe((result) => {
-        console.log(result.gouvernerats);
-        result.gouvernerats.forEach((element) => {
-          this.gouvernerates.push(element);
-        });
+    // this.res = this.gouverneratService
+    //   .Get_Gouvernerats()
+    //   .subscribe((result) => {
+    //     console.log(result.gouvernerats);
+    //     result.gouvernerats.forEach((element) => {
+    //       this.gouvernerates.push(element);
+    //     });
 
-        console.log('gov', this.gouvernerates);
+    //     console.log('gov', this.gouvernerates);
 
-        console.log();
+    //     console.log();
 
-        return result;
-      });
+    //     return result;
+    //   });
   }
 
   nextCount(event, etab) {
