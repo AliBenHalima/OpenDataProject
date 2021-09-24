@@ -12,8 +12,8 @@ bootstrap/compiled.php
 #public/hot
 
 # Laravel 5 & Lumen specific with changed public path
-public_html/storage
-public_html/hot
+# public_html/storage
+# public_html/hot
 
 storage/*.key
 Homestead.yaml
